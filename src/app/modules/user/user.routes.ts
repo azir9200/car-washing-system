@@ -7,7 +7,7 @@ router.post("/signup", UserControllers.createSignup);
 
 router.post("/login", UserControllers.createLogin);
 
-router.get("/", UserControllers.getAllUser);
+// router.get("/", UserControllers.getAllUser);
 
 router.delete("/:id", UserControllers.getSingleUser);
 
