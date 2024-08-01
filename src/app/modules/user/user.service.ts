@@ -1,8 +1,12 @@
-import { TUser } from "./user.interface";
-import { UserModel } from "./user.model";
+import { TUser } from './user.interface';
+import { UserModel } from './user.model';
 
-const createSignupIntoDB = async (user: TUser) => {
-  const result = await UserModel.create(user);
+const createSignupIntoDB = async (payload: TUser) => {
+  const isAdminExists = await UserModel.findOne({ email: payload.email });
+  if (isAdminExists) {
+    throw new Error('This admin already Exists !');
+  }
+  const result = await UserModel.create(payload);
   return result;
 };
 const createLoginIntoDB = async (user: TUser) => {
