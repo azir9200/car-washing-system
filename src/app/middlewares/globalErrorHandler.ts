@@ -1,6 +1,8 @@
 import { ErrorRequestHandler } from 'express';
 import config from '../config';
 import { TErrorSources } from '../interface/error';
+import { ZodError } from 'zod';
+import handleZodError from '../errors/handleZodError';
 
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   console.log(err.statusCode);
@@ -10,9 +12,16 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   let errorSources: TErrorSources = [
     {
       path: '',
-      message: 'azir, Something went wrong',
+      message: 'azir, Something went wrong from global',
     },
   ];
+
+  if (err instanceof ZodError) {
+    const simplifiedError = handleZodError(err);
+    statusCode = simplifiedError?.statusCode;
+    message = simplifiedError?.message;
+    errorSources = simplifiedError?.errorSources;
+  }
 
   //ultimate return
   return res.status(statusCode).json({

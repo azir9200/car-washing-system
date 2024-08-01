@@ -51,7 +51,6 @@ const deleteService = catchAsync(async (req, res) => {
   });
 });
 
-
 export const ServiceControllers = {
   createService,
   getAllServices,
