@@ -1,40 +1,52 @@
-import httpStatus from 'http-status';
+import { Request, Response } from 'express';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
+import httpStatus from 'http-status';
 import { ServiceServices } from './service.service';
 
-const createService = catchAsync(async (req, res) => {
-  const { service: serviceData } = req.body;
-
-  const result = await ServiceServices.createServiceIntoDB(serviceData);
+const createService = catchAsync(async (req: Request, res: Response) => {
+  const result = await ServiceServices.createServiceIntoDB(req.body);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Student is created successfully',
+    message: 'Service is created successfully!',
     data: result,
   });
 });
 
-const getAllServices = catchAsync(async (req, res) => {
-  const result = await ServiceServices.getAllServicesFromDB();
+const getAllService = catchAsync(async (req: Request, res: Response) => {
+  const result = await ServiceServices.getAllServiceFromDB();
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Services retrieved successfully',
+    message: 'Services are retrieved successfully !',
     data: result,
   });
 });
 
-const getSingleService = catchAsync(async (req, res) => {
-  const { _id } = req.params;
-  const result = await ServiceServices.getSingleServiceFromDB(_id);
+const getSingleService = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const result = await ServiceServices.getSingleServiceFromDB(id);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Student is retrieved successfully',
+    message: 'Service is retrieved successfully',
+    data: result,
+  });
+});
+
+const updateService = catchAsync(async (req, res) => {
+  const { id } = req.params;
+
+  const result = await ServiceServices.updateServiceFromDB(id, req.body);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Service  is updated successfully',
     data: result,
   });
 });
@@ -42,18 +54,19 @@ const getSingleService = catchAsync(async (req, res) => {
 const deleteService = catchAsync(async (req, res) => {
   const { id } = req.params;
   const result = await ServiceServices.deleteServiceFromDB(id);
-
+  console.log(id, 'service delete');
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Course is deleted successfully',
+    message: 'Service is deleted successfully',
     data: result,
   });
 });
 
-export const ServiceControllers = {
+export const ServiceController = {
   createService,
-  getAllServices,
+  getAllService,
   getSingleService,
   deleteService,
+  updateService,
 };

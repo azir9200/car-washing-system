@@ -1,4 +1,4 @@
-// src/interfaces/IService.ts
+
 export type TService = {
     name: string;
     description: string;
@@ -6,3 +6,4 @@ export type TService = {
     duration: number; // Duration in minutes
     isDeleted: boolean;
 }
+
