@@ -16,18 +16,15 @@ const getSingleServiceFromDB = async (id: string) => {
   return result;
 };
 
-const deleteServiceFromDB = async (id: string) => {
-  const result = await ServiceModel.findByIdAndDelete(
-    { id },
-    { isDeleted: true },
-  );
-  return result;
-};
-
 const updateServiceFromDB = async (id: string, payload: Partial<TService>) => {
   const result = await ServiceModel.findOneAndUpdate({ _id: id }, payload, {
     new: true,
   });
+  return result;
+};
+
+const deleteServiceFromDB = async (id: string) => {
+  const result = await ServiceModel.updateOne({ _id: id }, { isDeleted: true });
   return result;
 };
 
