@@ -14,4 +14,15 @@ const createServiceSchema = new mongoose.Schema<TService>(
   },
 );
 
+createServiceSchema.pre('save', async function (next) {
+  const isServiceExists = await ServiceModel.findOne({
+    name: this.name,
+  });
+
+  if (isServiceExists) {
+    throw new Error('This service is already exists !');
+  }
+  next();
+});
+
 export const ServiceModel = model<TService>('Service', createServiceSchema);

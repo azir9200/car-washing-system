@@ -1,3 +1,4 @@
+import httpStatus from 'http-status';
 import { TService } from './service.interface';
 import { ServiceModel } from './service.model';
 
@@ -12,6 +13,13 @@ const getAllServiceFromDB = async () => {
 };
 
 const getSingleServiceFromDB = async (id: string) => {
+  const existingService = await ServiceModel.find({ id });
+
+  if (!existingService) {
+    throw new Error('This Booking is already exists !');
+    // throw new AppError(httpStatus.BAD_REQUEST, 'Failed to delete user');
+  }
+
   const result = await ServiceModel.findById(id);
   return result;
 };

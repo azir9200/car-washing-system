@@ -11,6 +11,17 @@ const vehicleBookingSchema = new mongoose.Schema<TVehicleBooking>({
   registrationPlate: { type: String, required: true },
 });
 
+vehicleBookingSchema.pre('save', async function (next) {
+  const isBookingExists = await vehicleBookingModel.findOne({
+    serviceId: this.serviceId,
+  });
+
+  if (isBookingExists) {
+    throw new Error('This Booking is already exists !');
+  }
+  next();
+});
+
 export const vehicleBookingModel = model<TVehicleBooking>(
   'Booking',
   vehicleBookingSchema,
