@@ -19,17 +19,6 @@ const createSignup = async (req: Request, res: Response) => {
   }
 };
 
-// const createSignup = catchAsync(async (req, res) => {
-//   // const { signup: signupData } = req.body;
-//   const result = await UserServices.createSignupIntoDB(req.body);
-
-//   sendResponse(res, {
-//     statusCode: httpStatus.OK,
-//     success: true,
-//     message: 'Signup is created successfully',
-//     data: result,
-//   });
-// });
 
 const createLogin = async (req: Request, res: Response) => {
   try {
