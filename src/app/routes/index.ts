@@ -12,8 +12,12 @@ const moduleRoutes = [
     route: UserRoutes,
   },
   {
-    path: '/service',
+    path: '/services',
     route: ServiceRoutes,
+  },
+  {
+    path: '/services',
+    route: SlotsRoutes,
   },
   {
     path: '/slots',

@@ -1,7 +1,5 @@
 import { model, Schema } from 'mongoose';
 import { TUser, TUserModel } from './user.interface';
-import AppError from '../../errors/handleAppError';
-import httpStatus from 'http-status';
 
 const userSchema = new Schema<TUser>({
   name: { type: String, required: true },
@@ -12,23 +10,9 @@ const userSchema = new Schema<TUser>({
   address: { type: String, required: true },
 });
 
-// userSchema.pre('save', async function (next) {
-//   const isDepartmentExist = await UserModel.findById({
-//     id: this._id,
-//   });
 
-//   if (isDepartmentExist) {
-//     throw new AppError(
-//       httpStatus.NOT_FOUND,
-//       'This department is already exist!',
-//     );
-//   }
-
-//   next();
-// });
-
-userSchema.methods.isUserExists = async function (_id: string) {
-  const existingUser = await UserModel.findOne({ _id });
+userSchema.methods.isUserExists = async function (email: string) {
+  const existingUser = await UserModel.findOne({ email });
   return existingUser;
 };
 

@@ -4,36 +4,29 @@ import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import httpStatus from 'http-status';
 
-const createSignup = async (req: Request, res: Response) => {
-  try {
-    const { user: signupData } = req.body;
-    const result = await UserServices.createSignupIntoDB(signupData);
+const createSignup = catchAsync(async (req: Request, res: Response) => {
+  const { user: signupData } = req.body;
+  const result = await UserServices.createSignupIntoDB(signupData);
 
-    res.status(200).json({
-      success: true,
-      message: 'Signup is created successfully',
-      data: result,
-    });
-  } catch (err) {
-    console.log(err);
-  }
-};
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Services are retrieved successfully !',
+    data: result,
+  });
+});
 
+const createLogin = catchAsync(async (req: Request, res: Response) => {
+  const { user: userData } = req.body;
+  const result = await UserServices.createSignupIntoDB(userData);
 
-const createLogin = async (req: Request, res: Response) => {
-  try {
-    const { user: userData } = req.body;
-    const result = await UserServices.createSignupIntoDB(userData);
-
-    res.status(200).json({
-      success: true,
-      message: 'User is created successfully',
-      data: result,
-    });
-  } catch (err) {
-    console.log(err);
-  }
-};
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Services are retrieved successfully !',
+    data: result,
+  });
+});
 
 const getAllUser = async (req: Request, res: Response) => {
   try {
@@ -51,8 +44,8 @@ const getAllUser = async (req: Request, res: Response) => {
 
 const getSingleUser = async (req: Request, res: Response) => {
   try {
-    const { userId } = req.params;
-    const result = await UserServices.getSingleUserFromDB(userId);
+    const { id } = req.body;
+    const result = await UserServices.getSingleUserFromDB(id);
 
     res.status(200).json({
       success: true,

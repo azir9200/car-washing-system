@@ -5,23 +5,22 @@ import { ServiceController } from './service.controller';
 
 const router = express.Router();
 
-router.post('/create-services', ServiceController.createService);
-// router.post(
-//   '/create-services',
-//   zodValidateRequest(ServiceValidation.createServiceValidationSchema),
-//   ServiceController.createService,
-// );
+router.post(
+  '/',
+  zodValidateRequest(ServiceValidation.createServiceValidationSchema),
+  ServiceController.createService,
+);
 
 router.get('/', ServiceController.getAllService);
 
 router.get('/:id', ServiceController.getSingleService);
 
-router.put('/:id', ServiceController.updateService);
-// router.put(
-//   '/:id',
-//   zodValidateRequest(ServiceValidation.updateServiceValidationSchema),
-//   ServiceController.updateService,
-// );
+//  router.put('/:id', ServiceController.updateService);
+router.put(
+  '/:id',
+  zodValidateRequest(ServiceValidation.updateServiceValidationSchema),
+  ServiceController.updateService,
+);
 
 router.delete('/:id', ServiceController.deleteService);
 

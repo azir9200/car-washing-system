@@ -1,9 +1,15 @@
 import httpStatus from 'http-status';
 import { TService } from './service.interface';
 import { ServiceModel } from './service.model';
+import AppError from '../../errors/handleAppError';
 
-const createServiceIntoDB = async (service: TService) => {
-  const result = await ServiceModel.create(service);
+const createServiceIntoDB = async (data: TService) => {
+  const service = new ServiceModel(data);
+  if (await service.serviceNotExists(data.name)) {
+    throw new AppError(httpStatus.NOT_FOUND, 'This S  service is not exists !');
+  }
+  console.log(service, ' admin...signup');
+  const result = await service.save();
   return result;
 };
 

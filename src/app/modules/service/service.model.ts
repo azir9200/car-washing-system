@@ -1,7 +1,7 @@
-import mongoose, { Schema, model } from 'mongoose';
-import { TService } from './service.interface';
+import { Schema, model } from 'mongoose';
+import { TService, TServiceModel } from './service.interface';
 
-const createServiceSchema = new mongoose.Schema<TService>(
+const createServiceSchema = new Schema<TService>(
   {
     name: { type: String, required: true },
     description: { type: String, required: true },
@@ -14,15 +14,12 @@ const createServiceSchema = new mongoose.Schema<TService>(
   },
 );
 
-createServiceSchema.pre('save', async function (next) {
-  const isServiceExists = await ServiceModel.findOne({
-    name: this.name,
-  });
+createServiceSchema.methods.serviceNotExists = async function (name: string) {
+  const existingService = await ServiceModel.findOne({ name });
+  return existingService;
+};
 
-  if (isServiceExists) {
-    throw new Error('This service is already exists !');
-  }
-  next();
-});
-
-export const ServiceModel = model<TService>('Service', createServiceSchema);
+export const ServiceModel = model<TService, TServiceModel>(
+  'Service',
+  createServiceSchema,
+);

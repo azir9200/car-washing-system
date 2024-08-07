@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 export const createServiceValidationSchema = z.object({
   body: z.object({
-    user: z.object({
+    service: z.object({
       name: z.string().nonempty({ message: 'Name is required' }),
       description: z.string().nonempty({ message: 'Description is required' }),
       price: z
@@ -18,7 +18,7 @@ export const createServiceValidationSchema = z.object({
 
 export const updateServiceValidationSchema = z.object({
   body: z.object({
-    user: z.object({
+    service: z.object({
       name: z.string().nonempty({ message: 'Name is required' }).optional(),
       description: z
         .string()
@@ -41,4 +41,3 @@ export const ServiceValidation = {
   createServiceValidationSchema,
   updateServiceValidationSchema,
 };
-
