@@ -8,6 +8,10 @@ export type TService = {
   isDeleted: boolean;
 };
 export type TUserMethods = {
-  serviceNotExists(name: string, id: string): Promise<TService | null>;
+  serviceNotExists(name: string): Promise<TService | null>;
 };
-export type TServiceModel = Model<TService, Record<string, never>, TUserMethods>;
+export type TServiceModel = Model<
+  TService,
+  Record<string, never>,
+  TUserMethods
+>;

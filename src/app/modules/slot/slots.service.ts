@@ -1,4 +1,4 @@
-import { ServiceController } from '../service/service.controller';
+
 import { ServiceModel } from '../service/service.model';
 import { TServiceSlots } from './slots.interface';
 import { ServiceSlotsModel } from './slots.model';

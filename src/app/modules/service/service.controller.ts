@@ -5,8 +5,7 @@ import httpStatus from 'http-status';
 import { ServiceServices } from './service.service';
 
 const createService = catchAsync(async (req: Request, res: Response) => {
-  const { service: serviceData } = req.body;
-  const result = await ServiceServices.createServiceIntoDB(serviceData);
+  const result = await ServiceServices.createServiceIntoDB(req.body);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -53,11 +52,13 @@ const updateService = catchAsync(async (req, res) => {
 
 const deleteService = catchAsync(async (req, res) => {
   const { id } = req.params;
+  //  const data = req.body;
   const result = await ServiceServices.deleteServiceFromDB(id);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Service is deleted successfully',
+    // data: data,
     data: result,
   });
 });

@@ -5,13 +5,12 @@ import sendResponse from '../../utils/sendResponse';
 import httpStatus from 'http-status';
 
 const createSignup = catchAsync(async (req: Request, res: Response) => {
-  const { user: signupData } = req.body;
-  const result = await UserServices.createSignupIntoDB(signupData);
+   const result = await UserServices.createSignupIntoDB(req.body);
 
   sendResponse(res, {
-    statusCode: httpStatus.OK,
     success: true,
-    message: 'Services are retrieved successfully !',
+    statusCode: httpStatus.OK,
+    message: 'User registered successfully',
     data: result,
   });
 });
@@ -23,7 +22,7 @@ const createLogin = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Services are retrieved successfully !',
+    message: 'User logged in successfully',
     data: result,
   });
 });
@@ -34,7 +33,7 @@ const getAllUser = async (req: Request, res: Response) => {
 
     res.status(200).json({
       success: true,
-      message: 'User are retrieved successfully',
+      message: 'User registered successfully',
       data: result,
     });
   } catch (err) {

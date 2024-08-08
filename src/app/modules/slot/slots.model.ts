@@ -1,4 +1,4 @@
-import mongoose, { model, Schema } from 'mongoose';
+import mongoose, { model,  } from 'mongoose';
 import { TServiceSlots } from './slots.interface';
 
 const ServiceSlotsSchema = new mongoose.Schema<TServiceSlots>(

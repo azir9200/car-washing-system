@@ -7,6 +7,8 @@ export type TUser = {
   phone: string;
   role: 'user' | 'admin';
   address: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 };
 
 export type TUserMethods = {

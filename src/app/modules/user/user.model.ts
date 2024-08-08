@@ -14,6 +14,8 @@ const userSchema = new Schema<TUser>({
   phone: { type: String, required: true },
   role: { type: String, enum: ['user', 'admin'], required: true },
   address: { type: String, required: true },
+}, {
+  timestamps: true, 
 });
 
 userSchema.methods.isUserExists = async function (email: string) {
@@ -21,6 +23,7 @@ userSchema.methods.isUserExists = async function (email: string) {
   return existingUser;
 };
 userSchema.pre('save', async function (next) {
+  // eslint-disable-next-line @typescript-eslint/no-this-alias
   const user = this;
   user.password = await bcrypt.hash(
     user.password,

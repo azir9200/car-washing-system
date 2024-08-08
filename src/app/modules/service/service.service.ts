@@ -11,7 +11,7 @@ const createServiceIntoDB = async (data: TService) => {
       'This service is already exists !',
     );
   }
-  console.log(service, ' admin...signup');
+
   const result = await service.save();
   return result;
 };
@@ -26,9 +26,7 @@ const getSingleServiceFromDB = async (id: string) => {
 
   if (!existingService) {
     throw new Error('This Booking is already exists !');
-    // throw new AppError(httpStatus.BAD_REQUEST, 'Failed to delete user');
   }
-
   const result = await ServiceModel.findById(id);
   return result;
 };
@@ -40,8 +38,12 @@ const updateServiceFromDB = async (id: string, payload: Partial<TService>) => {
   return result;
 };
 
+// const deleteServiceFromDB = async (id: string, payload: Partial<TService>) => {
+//   const result = await ServiceModel.updateOne({ _id: id }, payload, { isDeleted: true });
+//   return result;
+// };
 const deleteServiceFromDB = async (id: string) => {
-  const result = await ServiceModel.updateOne({ _id: id }, { isDeleted: true });
+  const result = await ServiceModel.updateOne({ _id: id });
   return result;
 };
 
