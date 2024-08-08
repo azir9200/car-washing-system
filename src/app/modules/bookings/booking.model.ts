@@ -9,6 +9,7 @@ const vehicleBookingSchema = new mongoose.Schema<TVehicleBooking>({
   vehicleModel: { type: String, required: true },
   manufacturingYear: { type: Number, required: true },
   registrationPlate: { type: String, required: true },
+ 
 });
 
 vehicleBookingSchema.pre('save', async function (next) {

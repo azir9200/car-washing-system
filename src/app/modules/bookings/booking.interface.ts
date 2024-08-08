@@ -1,12 +1,12 @@
-import { Types } from "mongoose";
+import { Types } from 'mongoose';
 
 export type TVehicleBooking = {
-    serviceId: Types.ObjectId;
-    slotId: Types.ObjectId;
-    vehicleType: string;
-    vehicleBrand: string;
-    vehicleModel: string;
-    manufacturingYear: number;
-    registrationPlate: string;
-}
-
+  serviceId: Types.ObjectId;
+  slotId: Types.ObjectId;
+  vehicleType: string;
+  vehicleBrand: string;
+  vehicleModel: string;
+  manufacturingYear: number;
+  registrationPlate: string;
+  
+};

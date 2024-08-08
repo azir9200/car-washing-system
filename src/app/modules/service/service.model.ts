@@ -14,10 +14,24 @@ const createServiceSchema = new Schema<TService>(
   },
 );
 
-createServiceSchema.methods.serviceNotExists = async function (name: string) {
-  const existingService = await ServiceModel.findOne({ name });
+createServiceSchema.methods.serviceNotExists = async function (name: string,) {
+  const existingService = await ServiceModel.findOne({ name});
   return existingService;
 };
+
+
+createServiceSchema.pre('find', function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+createServiceSchema.pre('findOne', function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+createServiceSchema.pre('aggregate', function (next) {
+  this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
+  next();
+});
 
 export const ServiceModel = model<TService, TServiceModel>(
   'Service',

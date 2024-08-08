@@ -6,7 +6,10 @@ import AppError from '../../errors/handleAppError';
 const createServiceIntoDB = async (data: TService) => {
   const service = new ServiceModel(data);
   if (await service.serviceNotExists(data.name)) {
-    throw new AppError(httpStatus.NOT_FOUND, 'This S  service is not exists !');
+    throw new AppError(
+      httpStatus.NOT_FOUND,
+      'This service is already exists !',
+    );
   }
   console.log(service, ' admin...signup');
   const result = await service.save();

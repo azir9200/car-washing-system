@@ -4,12 +4,10 @@ import { TUser } from './user.interface';
 import { UserModel } from './user.model';
 
 const createSignupIntoDB = async (signup: TUser) => {
-  // const result = await UserModel.create(signup);
-  const admin = new UserModel(signup); //create an instance
+  const admin = new UserModel(signup);
   if (await admin.isUserExists(signup.email)) {
     throw new AppError(httpStatus.NOT_FOUND, 'This user is already exist!');
   }
-  console.log(admin, ' admin...signup');
   const result = await admin.save();
   return result;
 };
