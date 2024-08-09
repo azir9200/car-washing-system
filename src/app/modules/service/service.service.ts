@@ -22,9 +22,9 @@ const getAllServiceFromDB = async () => {
 };
 
 const getSingleServiceFromDB = async (id: string) => {
-  const existingService = await ServiceModel.find({ id });
+  const notService = await ServiceModel.find({ id });
 
-  if (!existingService) {
+  if (!notService) {
     throw new Error('This Booking is already exists !');
   }
   const result = await ServiceModel.findById(id);
@@ -38,10 +38,7 @@ const updateServiceFromDB = async (id: string, payload: Partial<TService>) => {
   return result;
 };
 
-// const deleteServiceFromDB = async (id: string, payload: Partial<TService>) => {
-//   const result = await ServiceModel.updateOne({ _id: id }, payload, { isDeleted: true });
-//   return result;
-// };
+
 const deleteServiceFromDB = async (id: string) => {
   const result = await ServiceModel.updateOne({ _id: id });
   return result;

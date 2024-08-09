@@ -3,6 +3,7 @@ import { z } from 'zod';
 export const createUserValidationSchema = z.object({
   body: z.object({
     name: z.string().nonempty({ message: 'Name is required' }),
+    booking: z.string(),
     email: z.string().email({ message: 'Invalid email address' }).optional(),
     password: z
       .string()

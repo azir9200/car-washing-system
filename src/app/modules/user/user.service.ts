@@ -18,7 +18,7 @@ const createLoginIntoDB = async (user: TUser) => {
 };
 
 const getAllUserFromDB = async () => {
-  const result = await UserModel.find();
+  const result = await UserModel.find().populate('booking');
   return result;
 };
 

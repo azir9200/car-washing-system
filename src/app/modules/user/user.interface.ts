@@ -1,7 +1,8 @@
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 
 export type TUser = {
   name: string;
+  booking: Types.ObjectId;
   email: string;
   password: string;
   phone: string;

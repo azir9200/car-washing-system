@@ -7,9 +7,10 @@ const createBookingIntoDB = async (booking: TVehicleBooking) => {
 };
 
 const getAllBookingFromDB = async () => {
-  const result = await vehicleBookingModel.find();
+  const result = await vehicleBookingModel.find().populate('service');
   return result;
 };
+
 const getMyBookingFromDB = async () => {
   const result = await vehicleBookingModel.find();
   return result;
