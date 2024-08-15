@@ -1,4 +1,6 @@
-import { Model, Types } from 'mongoose';
+import { Types } from 'mongoose';
+import { Model } from 'mongoose';
+import { USER_ROLE } from './user.constant';
 
 export type TUser = {
   name: string;
@@ -12,7 +14,22 @@ export type TUser = {
   updatedAt?: Date;
 };
 
-export type TUserMethods = {
-  isUserExists(email: string): Promise<TUser | null>;
-};
-export type TUserModel = Model<TUser, Record<string, never>, TUserMethods>;
+
+export interface UserModel extends Model<TUser> {
+  isUserExistsByCustomId(id: string): Promise<TUser>;
+  //deleted
+  isUserDeleted(id: string): Promise<TUser>;
+  // blocked
+  isUserBlocked(id: string): Promise<TUser>;
+  //instance methods for checking if passwords are matched
+  isPasswordMatched(
+    plainTextPassword: string,
+    hashedPassword: string
+  ): Promise<boolean>;
+  isJWTIssuedBeforePasswordChanged(
+    passwordChangedTimestamp: Date,
+    jwtIssuedTimestamp: number,
+  ): boolean;
+}
+
+export type TUserRole = keyof typeof USER_ROLE;

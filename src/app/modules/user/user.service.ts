@@ -1,16 +1,30 @@
 import httpStatus from 'http-status';
 import AppError from '../../errors/handleAppError';
 import { TUser } from './user.interface';
-import { UserModel } from './user.model';
+import config from '../../config';
+import mongoose from 'mongoose';
+import { User } from './user.model';
 
-const createSignupIntoDB = async (signup: TUser) => {
-  const admin = new UserModel(signup);
-  if (await admin.isUserExists(signup.email)) {
-    throw new AppError(httpStatus.NOT_FOUND, 'This user is already exist!');
-  }
-  const result = await admin.save();
-  return result;
+const createAdminIntoDB = async (password: string, payload: TUser) => {
+
+  //if password is not given , use deafult password
+  payload.password = password || (config.default_password as string);
+ //set student role
+ userData.role = 'student';
+
+ const result = await User.create(payload);
+ return result;
+ 
 };
+
+// const createSignupIntoDB = async (signup: TUser) => {
+//   const admin = new UserModel(signup);
+//   if (await admin.isUserExists(signup.email)) {
+//     throw new AppError(httpStatus.NOT_FOUND, 'This user is already exist!');
+//   }
+//   const result = await admin.save();
+//   return result;
+// };
 
 const createLoginIntoDB = async (user: TUser) => {
   const result = await UserModel.create(user);
@@ -33,7 +47,7 @@ const deleteUserFromDB = async (id: string) => {
 };
 
 export const UserServices = {
-  createSignupIntoDB,
+  createAdminIntoDB,
   createLoginIntoDB,
   getAllUserFromDB,
   getSingleUserFromDB,

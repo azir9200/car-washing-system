@@ -10,7 +10,6 @@ import AppError from '../errors/handleAppError';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
-
   //setting default values
   let statusCode = 500;
   let message = 'Something went wrong!';
@@ -43,6 +42,14 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     errorSources = simplifiedError?.errorSources;
   } else if (err instanceof AppError) {
     statusCode = err?.statusCode;
+    message = err.message;
+    errorSources = [
+      {
+        path: '',
+        message: err?.message,
+      },
+    ];
+  } else if (err instanceof Error) {
     message = err.message;
     errorSources = [
       {

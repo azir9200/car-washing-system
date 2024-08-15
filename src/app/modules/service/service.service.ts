@@ -11,7 +11,6 @@ const createServiceIntoDB = async (data: TService) => {
       'This service is already exists !',
     );
   }
-
   const result = await service.save();
   return result;
 };

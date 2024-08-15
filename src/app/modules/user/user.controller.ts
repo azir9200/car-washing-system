@@ -4,8 +4,21 @@ import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import httpStatus from 'http-status';
 
+const createAdmin = catchAsync(async (req, res) => {
+  const { password, admin: adminData } = req.body;
+
+  const result = await UserServices.createAdminIntoDB(password, adminData);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Admin is created successfully',
+    data: result,
+  });
+});
+
 const createSignup = catchAsync(async (req: Request, res: Response) => {
-   const result = await UserServices.createSignupIntoDB(req.body);
+  const result = await UserServices.createSignupIntoDB(req.body);
 
   sendResponse(res, {
     success: true,
@@ -27,37 +40,27 @@ const createLogin = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const getAllUser = async (req: Request, res: Response) => {
-  try {
-    const result = await UserServices.getAllUserFromDB();
+const getAllUser = catchAsync(async (req: Request, res: Response) => {
+  const result = await UserServices.getAllUserFromDB();
+  res.status(200).json({
+    success: true,
+    message: 'User registered successfully',
+    data: result,
+  });
+});
 
-    res.status(200).json({
-      success: true,
-      message: 'User registered successfully',
-      data: result,
-    });
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-const getSingleUser = async (req: Request, res: Response) => {
-  try {
-    const { id } = req.body;
-    const result = await UserServices.getSingleUserFromDB(id);
-
-    res.status(200).json({
-      success: true,
-      message: 'Student is retrieved successfully',
-      data: result,
-    });
-  } catch (err) {
-    console.log(err);
-  }
-};
+const getSingleUser = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.body;
+  const result = await UserServices.getSingleUserFromDB(id);
+  res.status(200).json({
+    success: true,
+    message: 'Student is retrieved successfully',
+    data: result,
+  });
+});
 
 export const UserControllers = {
-  createSignup,
+  createAdmin,
   createLogin,
   getAllUser,
   getSingleUser,
