@@ -1,12 +1,13 @@
 import { model, Schema } from 'mongoose';
-import { TUser, UserModel, } from './user.interface';
+import { TUser, UserModel } from './user.interface';
 import config from '../../config';
 import bcrypt from 'bcrypt';
+import { USER_Role } from './user.constant';
 
 const userSchema = new Schema<TUser, UserModel>(
   {
     name: { type: String, required: true },
-    booking: { type: Schema.Types.ObjectId, ref: 'Booking' },
+    // booking: { type: Schema.Types.ObjectId, ref: 'Booking' },
     email: { type: String, required: true },
     password: {
       type: String,
@@ -14,7 +15,12 @@ const userSchema = new Schema<TUser, UserModel>(
       maxlength: [20, 'Password cannot be more than 20 characters ! '],
     },
     phone: { type: String, required: true },
-    role: { type: String, enum: ['user', 'admin'], required: true },
+    role: {
+      type: String,
+      required: [true, 'Role is required'],
+      enum: Object.keys(USER_Role),
+    },
+    // role: { type: String, enum: ['user', 'admin'], required: true },
     address: { type: String, required: true },
   },
   {
@@ -41,13 +47,5 @@ userSchema.post('save', function (doc, next) {
   doc.password = '';
   next();
 });
-
-// Password matched
-userSchema.statics.isPasswordMatched = async function (
-  plainTextPassword,
-  hashedPassword
-) {
-  return await bcrypt.compare(plainTextPassword, hashedPassword);
-};
 
 export const User = model<TUser, UserModel>('User', userSchema);

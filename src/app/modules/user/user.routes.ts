@@ -7,27 +7,16 @@ const router = express.Router();
 
 // admin
 router.post(
-  "/create-admin",
+  '/create-admin',
   zodValidateRequest(UserValidation.createAdminValidationSchema),
-  UserControllers.
-)
-
-// router.post(
-//   '/signup',
-//   zodValidateRequest(UserValidation.createUserValidationSchema),
-//   UserControllers.createSignup,
-// );
-
-router.post(
-  '/login',
-  zodValidateRequest(UserValidation.createAdminValidationSchema),
-  UserControllers.createLogin,
+  UserControllers.createAdmin,
 );
 
-router.delete('/:id', UserControllers.getSingleUser);
-
-router.get('/:id', UserControllers.getSingleUser);
-
-router.get('/', UserControllers.getAllUser);
+//update
+router.put(
+  '/:userId',
+  zodValidateRequest(UserValidation.createAdminValidationSchema),
+  UserControllers.updateUser,
+);
 
 export const UserRoutes = router;
