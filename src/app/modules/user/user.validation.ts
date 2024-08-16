@@ -10,9 +10,9 @@ export const createAdminValidationSchema = z.object({
         .string()
         .min(6, { message: 'Password must be at least 6 characters long' }),
       phone: z.string().nonempty({ message: 'Phone number is required' }),
-    //  role: z.enum(['user', 'admin'], {
+  
      //   message: "Role must be either 'user' or 'admin'",    }),
-       role: z.nativeEnum(USER_Role).default(USER_Role.ADMIN),
+       role: z.nativeEnum(USER_Role),
       address: z.string().nonempty({ message: 'Address is required' }),
     }),
 

@@ -14,8 +14,9 @@ export type TUser = {
   updatedAt?: Date;
 };
 
+
 export interface UserModel extends Model<TUser> {
-  isUserExistsByCustomId(id: string): Promise<TUser>;
-  //deleted
-  isUserDeleted(id: string): Promise<TUser>;
+  //instance methods for checking if the user exist
+  isUserExists(id: string): Promise<TUser>;
+ 
 }

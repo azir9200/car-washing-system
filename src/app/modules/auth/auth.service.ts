@@ -15,7 +15,7 @@ const register = async (payload: TUser) => {
     throw new Error('User already exists');
   }
 
-  payload.role = USER_Role.USER;
+  payload.role = USER_Role.ADMIN;
   //create user
   const newUser = await User.create(payload);
 

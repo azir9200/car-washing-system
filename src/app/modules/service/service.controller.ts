@@ -28,13 +28,11 @@ const getAllService = catchAsync(async (req: Request, res: Response) => {
 
 const getSingleService = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
-
   const result = await ServiceServices.getSingleServiceFromDB(id);
-
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Service is retrieved successfully',
+    message: 'Service retrieved successfully',
     data: result,
   });
 });
@@ -57,7 +55,7 @@ const deleteService = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Service is deleted successfully',
+    message: 'Service  deleted successfully',
     // data: data,
     data: result,
   });

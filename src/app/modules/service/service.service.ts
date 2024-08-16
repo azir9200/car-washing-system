@@ -37,9 +37,8 @@ const updateServiceFromDB = async (id: string, payload: Partial<TService>) => {
   return result;
 };
 
-
 const deleteServiceFromDB = async (id: string) => {
-  const result = await ServiceModel.updateOne({ _id: id });
+  const result = await ServiceModel.findOneAndUpdate({ _id: id });
   return result;
 };
 
