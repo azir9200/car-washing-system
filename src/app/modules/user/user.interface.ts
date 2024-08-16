@@ -1,6 +1,6 @@
 import { Model } from 'mongoose';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { USER_Role } from './user.constant';
-
 
 export type TUser = {
   name: string;
@@ -18,15 +18,4 @@ export interface UserModel extends Model<TUser> {
   isUserExistsByCustomId(id: string): Promise<TUser>;
   //deleted
   isUserDeleted(id: string): Promise<TUser>;
-  // blocked
-  isUserBlocked(id: string): Promise<TUser>;
-  //instance methods for checking if passwords are matched
-  isPasswordMatched(
-    plainTextPassword: string,
-    hashedPassword: string,
-  ): Promise<boolean>;
-  isJWTIssuedBeforePasswordChanged(
-    passwordChangedTimestamp: Date,
-    jwtIssuedTimestamp: number,
-  ): boolean;
 }

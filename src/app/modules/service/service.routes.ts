@@ -2,11 +2,13 @@ import express from 'express';
 import zodValidateRequest from '../../middlewares/zodValidateRequest';
 import { ServiceValidation } from './service.validation';
 import { ServiceController } from './service.controller';
+import { auth } from '../../middlewares/auth';
 
 const router = express.Router();
 
 router.post(
   '/',
+  auth(),
   zodValidateRequest(ServiceValidation.createServiceValidationSchema),
   ServiceController.createService,
 );

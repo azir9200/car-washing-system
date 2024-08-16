@@ -11,8 +11,8 @@ const userSchema = new Schema<TUser, UserModel>(
     email: { type: String, required: true },
     password: {
       type: String,
-      required: [true, 'Password is required'],
-      maxlength: [20, 'Password cannot be more than 20 characters ! '],
+      required: [true, 'Password azir is required'],
+      select: 0,
     },
     phone: { type: String, required: true },
     role: {
