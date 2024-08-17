@@ -9,10 +9,12 @@ const router = express.Router();
 
 router.post(
   '/',
-  auth(USER_Role.ADMIN),
+  // auth(USER_Role.ADMIN),
   zodValidateRequest(ServiceValidation.createServiceValidationSchema),
   ServiceController.createService,
 );
+
+router.get('/availability', ServiceController.getAllAvailableSlots);
 
 router.get(
   '/',
@@ -32,6 +34,6 @@ router.put(
 router.delete('/:id', auth(USER_Role.ADMIN), ServiceController.deleteService);
 
 router.post('/slots', ServiceController.createSlots);
-router.get('/availability', ServiceController.getAllAvailableSlots);
+// router.get('/availability', ServiceController.getAllAvailableSlots);
 
 export const ServiceRoutes = router;

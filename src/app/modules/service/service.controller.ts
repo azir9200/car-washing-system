@@ -87,27 +87,21 @@ export const createSlots = async (req: Request, res: Response) => {
 
 // copy
 export const getAllAvailableSlots = async (req: Request, res: Response) => {
-    const { date, serviceId } = req.query;
+  // const { date, serviceId } = req.query;
+  console.log('booooooooy');
+  try {
+    const availableSlots = await ServiceServices.getAvailableSlotsFromDB();
 
-    try {
-        const availableSlots = await ServiceServices.getAvailableSlotsFromDB({ date: date as string, serviceId: serviceId as string });
-
-        res.status(200).json({
-            success: true,
-            statusCode: 200,
-            message: 'Available slots retrieved successfully',
-            data: availableSlots
-        });
-    } catch (err) {
-        res.status(500).json({
-            success: false,
-            statusCode: 500,
-            message: 'Error retrieving available slots',
-            error: err.message
-        });
-    }
+    res.status(200).json({
+      success: true,
+      statusCode: 200,
+      message: 'Available slots retrieved successfully',
+      data: availableSlots,
+    });
+  } catch (err) {
+    console.log(err);
+  }
 };
-
 
 export const ServiceController = {
   createService,

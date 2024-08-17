@@ -1,18 +1,16 @@
-import httpStatus from 'http-status';
 import { TService } from './service.interface';
 import { ServiceModel } from './service.model';
-import AppError from '../../errors/handleAppError';
 import SlotModel from './slots.model';
 
 const createServiceIntoDB = async (data: TService) => {
-  const service = new ServiceModel(data);
-  if (await ServiceModel.isServiceExists(data.name)) {
-    throw new AppError(
-      httpStatus.NOT_FOUND,
-      'This service is already exists , AZIR!',
-    );
-  }
-  const result = await service.save();
+  // const service = new ServiceModel(data);
+  // if (await ServiceModel.isServiceExists(data.name)) {
+  //   throw new AppError(
+  //     httpStatus.NOT_FOUND,
+  //     'This service is already exists , AZIR!',
+  //   );
+  // }
+  const result = await ServiceModel.create(data);
   return result;
 };
 
@@ -74,24 +72,14 @@ export const createSlotsIntoDB = async ({
 
 //  Available  slots
 
-interface GetSlotsInput {
-    date?: string;
-    serviceId?: string;
-}
+// interface GetSlotsInput {
+//     date?: string;
+//     serviceId?: string;
+// }
 
-export const getAvailableSlotsFromDB = async ({ date, serviceId }: GetSlotsInput) => {
-    const query: any = { isBooked: 'available' };
-    if (date) {
-        query.date = date;
-    }
-
-    if (serviceId) {
-        query.service = serviceId;
-    }
-
-    return await SlotModel.find(query).populate('service');
+export const getAvailableSlotsFromDB = async () => {
+  return await SlotModel.find().populate('service');
 };
-
 
 export const ServiceServices = {
   createServiceIntoDB,

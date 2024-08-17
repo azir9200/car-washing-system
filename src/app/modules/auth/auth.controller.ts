@@ -13,7 +13,9 @@ const register = catchAsync(async (req, res) => {
 });
 
 const login = catchAsync(async (req, res) => {
-  const { accessToken, refreshToken } = await AuthServices.login(req.body);
+  const { user, accessToken, refreshToken } = await AuthServices.login(
+    req.body,
+  );
 
   res.cookie('refreshToken', refreshToken, {
     httpOnly: true,
@@ -22,11 +24,10 @@ const login = catchAsync(async (req, res) => {
 
   res.status(200).json({
     success: true,
-    // statusCode: ,
-    message: 'User bvbb logged in successfully!',
-    data: {
-      accessToken,
-    },
+    statusCode: 200,
+    message: 'User  logged in successfully!',
+    accessToken,
+    data: user,
   });
 });
 

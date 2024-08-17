@@ -4,11 +4,9 @@ import { TUser } from '../user/user.interface';
 import { User } from '../user/user.model';
 import { TLoginUser } from './auth.interface';
 import { isPasswordMatched } from './auth.utils';
-import jwt from "jsonwebtoken";
-
+import jwt from 'jsonwebtoken';
 
 const register = async (payload: TUser) => {
- 
   const user = await User.findOne({ email: payload.email });
 
   if (user) {
@@ -23,17 +21,17 @@ const register = async (payload: TUser) => {
 };
 
 const login = async (payload: TLoginUser) => {
-   const user = await User.findOne({ email: payload.email }).select("+password");
+  const user = await User.findOne({ email: payload.email }).select('+password');
   if (!user) {
-    throw new Error("User not found");
-  } 
+    throw new Error('User not found');
+  }
   const passwordMatch = await isPasswordMatched(
     payload.password,
-    user.password
+    user.password,
   );
 
   if (!passwordMatch) {
-    throw new Error("Password not matched");
+    throw new Error('Password not matched');
   }
 
   const jwtPayload = {
@@ -49,15 +47,15 @@ const login = async (payload: TLoginUser) => {
     config.jwt_refresh_secret as string,
     {
       expiresIn: config.jwt_refresh_expires_in,
-    }
+    },
   );
 
   return {
+    user,
     accessToken,
     refreshToken,
   };
 };
-
 
 export const AuthServices = {
   register,
