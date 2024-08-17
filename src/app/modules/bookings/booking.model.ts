@@ -2,10 +2,8 @@ import mongoose, { Schema, model } from 'mongoose';
 import { TVehicleBooking } from './booking.interface';
 
 const vehicleBookingSchema = new mongoose.Schema<TVehicleBooking>({
-  service: {
-    type: Schema.Types.ObjectId,
-    ref: 'Service',
-  },
+  customer: { type: Schema.Types.ObjectId, ref: 'Customer' },
+  service: { type: Schema.Types.ObjectId, ref: 'Service' },
   // slot: { type: Schema.Types.ObjectId, ref: 'Slot' },
   vehicleType: { type: String, required: true },
   vehicleBrand: { type: String, required: true },

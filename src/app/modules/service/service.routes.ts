@@ -9,31 +9,27 @@ const router = express.Router();
 
 router.post(
   '/',
-  // auth(USER_Role.ADMIN),
+  auth(USER_Role.admin),
   zodValidateRequest(ServiceValidation.createServiceValidationSchema),
   ServiceController.createService,
 );
 
 router.get('/availability', ServiceController.getAllAvailableSlots);
 
-router.get(
-  '/',
-  auth(USER_Role.ADMIN, USER_Role.USER),
-  ServiceController.getAllService,
-);
+router.get('/', ServiceController.getAllService);
 
 router.get('/:id', ServiceController.getSingleService);
 
 router.put(
   '/:id',
-  auth(USER_Role.ADMIN),
+  auth(USER_Role.admin),
   zodValidateRequest(ServiceValidation.updateServiceValidationSchema),
   ServiceController.updateService,
 );
 
-router.delete('/:id', auth(USER_Role.ADMIN), ServiceController.deleteService);
+router.delete('/:id', auth(USER_Role.admin), ServiceController.deleteService);
 
-router.post('/slots', ServiceController.createSlots);
+router.post('/slots', auth(USER_Role.admin), ServiceController.createSlots);
 // router.get('/availability', ServiceController.getAllAvailableSlots);
 
 export const ServiceRoutes = router;

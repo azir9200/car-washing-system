@@ -11,7 +11,6 @@ export const auth = (...requiredRoles: (keyof typeof USER_Role)[]) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     //  const accessToken = req.headers.authorization;
     const accessToken = req.header('Authorization')?.replace('Bearer ', '');
-    console.log(accessToken, 'acccessTokennnnnnn');
 
     if (!accessToken) {
       throw new AppError(

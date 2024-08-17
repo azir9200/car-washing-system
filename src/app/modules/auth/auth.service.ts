@@ -13,7 +13,7 @@ const register = async (payload: TUser) => {
     throw new Error('User already exists');
   }
 
-  payload.role = USER_Role.ADMIN;
+  payload.role = USER_Role.admin || USER_Role.user;
   //create user
   const newUser = await User.create(payload);
 
