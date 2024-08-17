@@ -22,11 +22,16 @@ router.get(
 
 router.get('/:id', ServiceController.getSingleService);
 
-router.put('/:id',  auth(USER_Role.ADMIN),
+router.put(
+  '/:id',
+  auth(USER_Role.ADMIN),
   zodValidateRequest(ServiceValidation.updateServiceValidationSchema),
   ServiceController.updateService,
 );
 
-router.delete('/:id',  auth(USER_Role.ADMIN), ServiceController.deleteService);
+router.delete('/:id', auth(USER_Role.ADMIN), ServiceController.deleteService);
+
+router.post('/slots', ServiceController.createSlots);
+router.get('/availability', ServiceController.getAllAvailableSlots);
 
 export const ServiceRoutes = router;

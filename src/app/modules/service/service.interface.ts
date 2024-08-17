@@ -7,11 +7,9 @@ export type TService = {
   duration: number; // Duration in minutes
   isDeleted: boolean;
 };
-export type TUserMethods = {
-  serviceNotExists(name: string): Promise<TService | null>;
-};
-export type TServiceModel = Model<
-  TService,
-  Record<string, never>,
-  TUserMethods
->;
+export interface TServiceModel extends Model<TService> {
+  //instance methods for checking if the user exist
+  isServiceExists(id: string): Promise<TService>;
+ 
+}
+

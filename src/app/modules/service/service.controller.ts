@@ -61,10 +61,60 @@ const deleteService = catchAsync(async (req, res) => {
   });
 });
 
+// COPY
+
+export const createSlots = async (req: Request, res: Response) => {
+  const { service, date, startTime, endTime } = req.body;
+
+  try {
+    const savedSlots = await ServiceServices.createSlotsIntoDB({
+      service,
+      date,
+      startTime,
+      endTime,
+    });
+
+    res.status(200).json({
+      success: true,
+      statusCode: 200,
+      message: 'Slots created successfully',
+      data: savedSlots,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// copy
+export const getAllAvailableSlots = async (req: Request, res: Response) => {
+    const { date, serviceId } = req.query;
+
+    try {
+        const availableSlots = await ServiceServices.getAvailableSlotsFromDB({ date: date as string, serviceId: serviceId as string });
+
+        res.status(200).json({
+            success: true,
+            statusCode: 200,
+            message: 'Available slots retrieved successfully',
+            data: availableSlots
+        });
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            statusCode: 500,
+            message: 'Error retrieving available slots',
+            error: err.message
+        });
+    }
+};
+
+
 export const ServiceController = {
   createService,
   getAllService,
   getSingleService,
   deleteService,
   updateService,
+  createSlots,
+  getAllAvailableSlots,
 };

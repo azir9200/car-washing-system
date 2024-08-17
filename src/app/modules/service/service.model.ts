@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
 import { TService, TServiceModel } from './service.interface';
 
-const createServiceSchema = new Schema<TService>(
+const serviceSchema = new Schema<TService>(
   {
     name: { type: String, required: true },
     description: { type: String, required: true },
@@ -14,26 +14,20 @@ const createServiceSchema = new Schema<TService>(
   },
 );
 
-createServiceSchema.methods.serviceNotExists = async function (name: string,) {
-  const existingService = await ServiceModel.findOne({ name});
-  return existingService;
+serviceSchema.pre('find', function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+serviceSchema.pre('findOne', function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
+serviceSchema.statics.isServiceExists = async function (id: string) {
+  return await ServiceModel.findOne({ id });
 };
-
-
-createServiceSchema.pre('find', function (next) {
-  this.find({ isDeleted: { $ne: true } });
-  next();
-});
-createServiceSchema.pre('findOne', function (next) {
-  this.find({ isDeleted: { $ne: true } });
-  next();
-});
-createServiceSchema.pre('aggregate', function (next) {
-  this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
-  next();
-});
 
 export const ServiceModel = model<TService, TServiceModel>(
   'Service',
-  createServiceSchema,
+  serviceSchema,
 );
