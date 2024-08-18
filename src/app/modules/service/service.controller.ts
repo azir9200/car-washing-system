@@ -61,47 +61,45 @@ const deleteService = catchAsync(async (req, res) => {
   });
 });
 
-// COPY
+const createSlots = catchAsync(async (req: Request, res: Response) => {
+  const result = await ServiceServices.createSlotsIntoDB(req.body);
 
-export const createSlots = async (req: Request, res: Response) => {
-  const { service, date, startTime, endTime } = req.body;
-
-  try {
-    const savedSlots = await ServiceServices.createSlotsIntoDB({
-      service,
-      date,
-      startTime,
-      endTime,
-    });
-
-    res.status(200).json({
-      success: true,
-      statusCode: 200,
-      message: 'Slots created successfully',
-      data: savedSlots,
-    });
-  } catch (err) {
-    console.log(err);
-  }
-};
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Slots created successfully',
+    data: result,
+  });
+});
 
 // copy
-export const getAllAvailableSlots = async (req: Request, res: Response) => {
-  // const { date, serviceId } = req.query;
-  console.log('booooooooy');
-  try {
-    const availableSlots = await ServiceServices.getAvailableSlotsFromDB();
+// export const getAllAvailableSlots = async (req: Request, res: Response) => {
+//   // const { date, serviceId } = req.query;
+//   console.log('booooooooy');
+//   try {
+//     const availableSlots = await ServiceServices.getAvailableSlotsFromDB();
 
-    res.status(200).json({
-      success: true,
-      statusCode: 200,
-      message: 'Available slots retrieved successfully',
-      data: availableSlots,
-    });
-  } catch (err) {
-    console.log(err);
-  }
-};
+//     res.status(200).json({
+//       success: true,
+//       statusCode: 200,
+//       message: 'Available slots retrieved successfully',
+//       data: availableSlots,
+//     });
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
+
+const getAllAvailableSlots = catchAsync(async (req: Request, res: Response) => {
+  const result = await ServiceServices.getAvailableSlotsFromDB();
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Available slots retrieved successfully',
+    data: result,
+  });
+});
 
 export const ServiceController = {
   createService,

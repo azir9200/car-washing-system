@@ -1,6 +1,6 @@
 import mongoose, { Document, Schema } from 'mongoose';
 
-export interface TSlots {
+export interface TSlot {
     service: string;
     date: string;
     startTime: string;

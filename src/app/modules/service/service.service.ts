@@ -1,15 +1,8 @@
 import { TService } from './service.interface';
 import { ServiceModel } from './service.model';
-import SlotModel from './slots.model';
+import SlotModel, { TSlot } from './slots.model';
 
 const createServiceIntoDB = async (data: TService) => {
-  // const service = new ServiceModel(data);
-  // if (await ServiceModel.isServiceExists(data.name)) {
-  //   throw new AppError(
-  //     httpStatus.NOT_FOUND,
-  //     'This service is already exists , AZIR!',
-  //   );
-  // }
   const result = await ServiceModel.create(data);
   return result;
 };
@@ -40,19 +33,9 @@ const deleteServiceFromDB = async (id: string) => {
   const result = await ServiceModel.findOneAndUpdate({ _id: id });
   return result;
 };
-interface CreateSlotsInput {
-  service: string;
-  date: string;
-  startTime: string;
-  endTime: string;
-}
 
-export const createSlotsIntoDB = async ({
-  service,
-  date,
-  startTime,
-  endTime,
-}: CreateSlotsInput) => {
+export const createSlotsIntoDB = async (slotData: TSlot) => {
+  const { service, date, startTime, endTime } = slotData;
   const startHour = parseInt(startTime.split(':')[0]);
   const endHour = parseInt(endTime.split(':')[0]);
 
@@ -69,13 +52,6 @@ export const createSlotsIntoDB = async ({
 
   return await SlotModel.insertMany(slots);
 };
-
-//  Available  slots
-
-// interface GetSlotsInput {
-//     date?: string;
-//     serviceId?: string;
-// }
 
 export const getAvailableSlotsFromDB = async () => {
   return await SlotModel.find().populate('service');
