@@ -14,8 +14,6 @@ router.post(
   ServiceController.createService,
 );
 
-router.get('/availability', ServiceController.getAllAvailableSlots);
-
 router.get('/', ServiceController.getAllService);
 
 router.get('/:id', ServiceController.getSingleService);
@@ -30,6 +28,8 @@ router.put(
 router.delete('/:id', auth(USER_Role.admin), ServiceController.deleteService);
 
 router.post('/slots', auth(USER_Role.admin), ServiceController.createSlots);
-// router.get('/availability', ServiceController.getAllAvailableSlots);
+
+router.get('/availability', ServiceController.getAllAvailableSlots);
+
 
 export const ServiceRoutes = router;

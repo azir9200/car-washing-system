@@ -3,31 +3,27 @@ import { BookingModel } from './booking.model';
 
 const createBookingIntoDB = async (booking: TBooking) => {
   const result = (await BookingModel.create(booking)).populate([
-    { path: 'Customer' },
-    { path: 'Service' },
-    { path: 'Slot' },
+    { path: 'customer' },
+    { path: 'service' },
+    { path: 'slot' },
   ]);
-
-  // const createdBooking = await BookingModel.create(booking);
-
-  // // Populate the necessary fields
-  // const result = await (
-  //   await (await createdBooking.populate('service')).populate('customer')
-  // ).populate('slot');
 
   return result;
 };
 
 const getAllBookingFromDB = async () => {
   const result = await BookingModel.find()
-    .populate('Customer')
-    .populate('Service')
-    .populate('Slot');
+    .populate('customer')
+    .populate('service')
+    .populate('slot');
   return result;
 };
 
 const getMyBookingFromDB = async () => {
-  const result = await BookingModel.find();
+  const result = await BookingModel.find()
+    .populate('customer')
+    .populate('service')
+    .populate('slot');
   return result;
 };
 

@@ -52,4 +52,4 @@ userSchema.statics.isUserExists = async function (id: string) {
   return await User.findOne({ id }).select('+password');
 };
 
-export const User = model<TUser, UserModel>('Customer', userSchema);
+export const User = model<TUser, UserModel>('customer', userSchema);

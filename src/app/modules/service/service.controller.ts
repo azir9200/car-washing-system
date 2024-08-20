@@ -62,7 +62,9 @@ const deleteService = catchAsync(async (req, res) => {
 });
 
 const createSlots = catchAsync(async (req: Request, res: Response) => {
+  console.log(req.body, 'req,bodyyyy');
   const result = await ServiceServices.createSlotsIntoDB(req.body);
+  console.log(result, 'result. reeere');
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -72,26 +74,11 @@ const createSlots = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-// copy
-// export const getAllAvailableSlots = async (req: Request, res: Response) => {
-//   // const { date, serviceId } = req.query;
-//   console.log('booooooooy');
-//   try {
-//     const availableSlots = await ServiceServices.getAvailableSlotsFromDB();
-
-//     res.status(200).json({
-//       success: true,
-//       statusCode: 200,
-//       message: 'Available slots retrieved successfully',
-//       data: availableSlots,
-//     });
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
-
 const getAllAvailableSlots = catchAsync(async (req: Request, res: Response) => {
+  console.log(req.body, 'req,boy');
+  // const { service } = req.body;
   const result = await ServiceServices.getAvailableSlotsFromDB();
+  console.log(result, 'result. reeere');
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

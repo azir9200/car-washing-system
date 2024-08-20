@@ -2,26 +2,22 @@ import mongoose, { Schema, model } from 'mongoose';
 import { TBooking } from './booking.interface';
 
 const BookingSchema = new mongoose.Schema<TBooking>({
-  // customer: { type: Schema.Types.ObjectId, ref: 'Customer' },
-  // service: { type: Schema.Types.ObjectId, ref: 'Service' },
-  // slot: { type: Schema.Types.ObjectId, ref: 'Slot' },
+
   customer: {
     type: Schema.Types.ObjectId,
-    required: [true, 'User= customer id is required'],
-    unique: true,
-    ref: 'Customer',
+    required: [true, 'Customer id is required'],
+    ref: 'customer',
   },
   service: {
     type: Schema.Types.ObjectId,
-    required: [true, 'User1= service id is required'],
-    unique: true,
-    ref: 'Service',
+    required: [true, 'Service id is required'],
+    ref: 'service',
   },
   slot: {
     type: Schema.Types.ObjectId,
-    required: [true, 'User2=slot  id is required'],
+    required: [true, 'Slot  id is required'],
     unique: true,
-    ref: 'Slot',
+    ref: 'slot',
   },
 
   vehicleType: { type: String, required: true },
@@ -42,4 +38,4 @@ BookingSchema.pre('save', async function (next) {
   next();
 });
 
-export const BookingModel = model<TBooking>('Booking', BookingSchema);
+export const BookingModel = model<TBooking>('booking', BookingSchema);

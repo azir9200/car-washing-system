@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose';
-import { TSlot } from './service.interface';
+import { TSlot } from './slots.interface';
 
 export const slotSchema = new Schema<TSlot>(
   {

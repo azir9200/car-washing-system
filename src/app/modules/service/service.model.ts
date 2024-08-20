@@ -27,4 +27,4 @@ serviceSchema.statics.isServiceExists = async function (id: string) {
   return await ServiceModel.findOne({ id });
 };
 
-export const ServiceModel = model<TService>('Service', serviceSchema);
+export const ServiceModel = model<TService>('service', serviceSchema);
