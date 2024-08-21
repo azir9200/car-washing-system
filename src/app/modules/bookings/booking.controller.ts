@@ -5,7 +5,6 @@ import httpStatus from 'http-status';
 import { BookingServices } from './booking.service';
 
 const createBooking = catchAsync(async (req: Request, res: Response) => {
-  console.log(req.body);
   const result = await BookingServices.createBookingIntoDB(req.body);
 
   sendResponse(res, {

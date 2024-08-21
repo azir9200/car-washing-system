@@ -1,4 +1,4 @@
-import { Model, Types } from 'mongoose';
+import { Model } from 'mongoose';
 
 export type TService = {
   name: string;
@@ -7,12 +7,12 @@ export type TService = {
   duration: number; // Duration in minutes
   isDeleted: boolean;
 };
-export type TSlot = {
-  service: Types.ObjectId;
-  date: string;
-  startTime: string;
-  endTime: string;
-};
+// export type TSlot = {
+//   service: Types.ObjectId;
+//   date: string;
+//   startTime: string;
+//   endTime: string;
+// };
 
 export interface TServiceModel extends Model<TService> {
   //instance methods for checking if the user exist

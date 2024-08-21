@@ -1,9 +1,9 @@
-import { Types } from 'mongoose';
+import { Model, Types } from 'mongoose';
 
 export type TBooking = {
   customer: Types.ObjectId;
-  service: Types.ObjectId;
-  slot: Types.ObjectId;
+  serviceId: Types.ObjectId;
+  slotId: Types.ObjectId;
 
   vehicleType: string;
   vehicleBrand: string;
@@ -11,3 +11,6 @@ export type TBooking = {
   manufacturingYear: number;
   registrationPlate: string;
 };
+export interface BookingModelModel extends Model<TBooking> {
+  isUserExists(id: string): Promise<TBooking | null>;
+}

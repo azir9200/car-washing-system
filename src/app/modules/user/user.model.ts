@@ -7,12 +7,12 @@ import { USER_Role } from './user.constant';
 const userSchema = new Schema<TUser, UserModel>(
   {
     name: { type: String, required: true },
-    // booking: { type: Schema.Types.ObjectId, ref: 'Booking' },
+    
     email: { type: String, required: true },
     password: {
       type: String,
       required: true,
-      select: 0,
+      select: false,
     },
     phone: { type: String, required: true },
     role: {
@@ -49,7 +49,12 @@ userSchema.post('save', function (doc, next) {
 });
 
 userSchema.statics.isUserExists = async function (id: string) {
-  return await User.findOne({ id }).select('+password');
+  const result = await User.findOne({ id }).select('+password');
+  return result;
+};
+userSchema.statics.isUserExists = async function (id: string) {
+  const result = await User.findOne({ id }).select('+password');
+  return result;
 };
 
 export const User = model<TUser, UserModel>('customer', userSchema);

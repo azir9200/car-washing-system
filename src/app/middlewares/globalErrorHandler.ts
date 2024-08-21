@@ -1,14 +1,15 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-unused-vars */
 import { ErrorRequestHandler } from 'express';
-import config from '../config';
-import { TErrorSources } from '../interface/error';
 import { ZodError } from 'zod';
-import handleZodError from '../errors/handleZodError';
-import handleValidationError from '../errors/handleValidationError';
+import config from '../config';
 import handleCastError from '../errors/handleCastError';
 import handleDuplicateError from '../errors/handleDuplicateError';
+import handleValidationError from '../errors/handleValidationError';
+import handleZodError from '../errors/handleZodError';
+import { TErrorSources } from '../interface/error';
 import AppError from '../errors/handleAppError';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   //setting default values
   let statusCode = 500;
@@ -16,7 +17,7 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   let errorSources: TErrorSources = [
     {
       path: '',
-      message: 'azir, Something went wrong from global',
+      message: 'Something went wrong',
     },
   ];
 
@@ -70,3 +71,14 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
 };
 
 export default globalErrorHandler;
+
+//pattern
+/*
+success
+message
+errorSources:[
+  path:'',
+  message:''
+]
+stack
+*/

@@ -13,18 +13,15 @@ export const auth = (...requiredRoles: (keyof typeof USER_Role)[]) => {
     const accessToken = req.header('Authorization')?.replace('Bearer ', '');
 
     if (!accessToken) {
-      throw new AppError(
-        401,
-        'You are not authorized to access this route, no token ',
-      );
+      throw new AppError(401, 'You have no access to this route');
     }
 
-    const verfiedToken = jwt.verify(
+    const verifiedToken = jwt.verify(
       accessToken as string,
       config.jwt_access_secret as string,
     );
 
-    const { role, email } = verfiedToken as JwtPayload;
+    const { role, email } = verifiedToken as JwtPayload;
 
     const user = await User.findOne({ email });
 

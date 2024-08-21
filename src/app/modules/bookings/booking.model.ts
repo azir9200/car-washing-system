@@ -2,21 +2,18 @@ import mongoose, { Schema, model } from 'mongoose';
 import { TBooking } from './booking.interface';
 
 const BookingSchema = new mongoose.Schema<TBooking>({
-
   customer: {
     type: Schema.Types.ObjectId,
     required: [true, 'Customer id is required'],
     ref: 'customer',
   },
-  service: {
+  serviceId: {
     type: Schema.Types.ObjectId,
-    required: [true, 'Service id is required'],
     ref: 'service',
   },
-  slot: {
+  slotId: {
     type: Schema.Types.ObjectId,
-    required: [true, 'Slot  id is required'],
-    unique: true,
+    required: true,
     ref: 'slot',
   },
 
@@ -27,15 +24,10 @@ const BookingSchema = new mongoose.Schema<TBooking>({
   registrationPlate: { type: String, required: true },
 });
 
-BookingSchema.pre('save', async function (next) {
-  const isBookingExists = await BookingModel.findOne({
-    serviceId: this.service,
-  });
-
-  if (isBookingExists) {
-    throw new Error('This Booking is already exists !');
-  }
-  next();
-});
+//creating a custom static method
+BookingSchema.statics.isBookingExists = async function (id: string) {
+  const existingBooking = await BookingModel.findOne({ id });
+  return existingBooking;
+};
 
 export const BookingModel = model<TBooking>('booking', BookingSchema);
