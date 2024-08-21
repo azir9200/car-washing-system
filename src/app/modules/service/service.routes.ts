@@ -16,7 +16,7 @@ router.post(
   ServiceController.createService,
 );
 
-router.get('/', ServiceController.getAllService);
+router.get('/', auth(USER_Role.admin), ServiceController.getAllService);
 
 router.get('/:id', ServiceController.getSingleService);
 
@@ -36,6 +36,5 @@ router.post(
   SlotController.createSlots,
 );
 
-// router.get('/availability', ServiceController.getAllAvailableSlots);
 
 export const ServiceRoutes = router;

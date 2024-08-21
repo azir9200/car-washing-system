@@ -30,9 +30,10 @@ export const auth = (...requiredRoles: (keyof typeof USER_Role)[]) => {
     }
 
     if (!requiredRoles.includes(role)) {
-      throw new AppError(401, 'You are not authorized to access this route');
+      throw new AppError(401, 'You have no access to this route');
     }
-
+    req.user = verifiedToken as JwtPayload;
     next();
+    return user;
   });
 };

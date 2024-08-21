@@ -37,7 +37,7 @@ const getSingleService = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const updateService = catchAsync(async (req, res) => {
+const updateService = catchAsync(async (req, res) => {  
   const { id } = req.params;
   const result = await ServiceServices.updateServiceFromDB(id, req.body);
   sendResponse(res, {
@@ -63,7 +63,6 @@ const deleteService = catchAsync(async (req, res) => {
 
 // const createSlots = catchAsync(async (req: Request, res: Response) => {
 //   const result = await ServiceServices.createSlotsIntoDB(req.body);
-
 
 //   sendResponse(res, {
 //     statusCode: httpStatus.OK,

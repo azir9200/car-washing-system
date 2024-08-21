@@ -15,7 +15,10 @@ const createBooking = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+//  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IjA5d2ViQHByb2dyYW1taW5nLWhlcm8uY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzI0MjcyOTcwLCJleHAiOjE3MjQ4Nzc3NzB9.1cQ7bIM9nePn2bMDPB7SiHYHJAYxY6jAPIepvvYhw0Y
+
 const getAllBookings = catchAsync(async (req: Request, res: Response) => {
+  console.log(req.user, 'user123   body');
   const result = await BookingServices.getAllBookingFromDB();
 
   sendResponse(res, {

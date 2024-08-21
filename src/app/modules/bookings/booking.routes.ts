@@ -9,16 +9,12 @@ const router = express.Router();
 
 router.post(
   '/',
-  //auth(USER_Role.admin),
+  auth(USER_Role.user),
   zodValidateRequest(BookingValidation.createBookingValidationSchema),
   BookingController.createBooking,
 );
 
-router.get(
-  '/',
-  // auth(USER_Role.admin, USER_Role.user, ),
-  BookingController.getAllBookings,
-);
+router.get('/', auth(USER_Role.admin), BookingController.getAllBookings);
 
 router.get(
   '/my-bookings',

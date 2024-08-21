@@ -4,7 +4,6 @@ import { USER_Role } from './user.constant';
 
 export type TUser = {
   name: string;
-  // booking: Types.ObjectId;
   email: string;
   password: string;
   phone: string;

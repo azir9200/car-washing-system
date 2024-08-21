@@ -20,7 +20,7 @@ const userSchema = new Schema<TUser, UserModel>(
       required: [true, 'Role is required'],
       enum: Object.keys(USER_Role),
     },
-    // role: { type: String, enum: ['user', 'admin'], required: true },
+
     address: { type: String, required: true },
   },
   {

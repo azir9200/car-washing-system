@@ -4,9 +4,7 @@ import { TBooking } from './booking.interface';
 import { BookingModel } from './booking.model';
 
 const createBookingIntoDB = async (booking: TBooking) => {
-  
   const result = (await BookingModel.create(booking)).populate([
-     { path: 'customer' },
     { path: 'serviceId' },
     { path: 'slotId' },
   ]);
@@ -16,7 +14,7 @@ const createBookingIntoDB = async (booking: TBooking) => {
 
 const getAllBookingFromDB = async () => {
   const result = await BookingModel.find()
-    // .populate('customer')
+     .populate('customer')
     .populate('serviceId')
     .populate('slotId');
   if (!result || result.length === 0) {
