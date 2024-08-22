@@ -2,14 +2,13 @@ import { NextFunction, Request, Response } from 'express';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import config from '../config';
 import { User } from '../modules/user/user.model';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { USER_Role } from '../modules/user/user.constant';
 import catchAsync from '../utils/catchAsync';
 import AppError from '../errors/handleAppError';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { USER_ROLE } from '../modules/user/user.constant';
 
-export const auth = (...requiredRoles: (keyof typeof USER_Role)[]) => {
+export const auth = (...requiredRoles: (keyof typeof USER_ROLE)[]) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    //  const accessToken = req.headers.authorization;
     const accessToken = req.header('Authorization')?.replace('Bearer ', '');
 
     if (!accessToken) {

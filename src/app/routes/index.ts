@@ -21,6 +21,10 @@ const moduleRoutes = [
     route: BookingRoutes,
   },
   {
+    path: '/my-bookings',
+    route: BookingRoutes,
+  },
+  {
     path: '/auth',
     route: AuthRoutes,
   },

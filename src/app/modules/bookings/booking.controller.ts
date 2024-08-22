@@ -5,6 +5,7 @@ import httpStatus from 'http-status';
 import { BookingServices } from './booking.service';
 
 const createBooking = catchAsync(async (req: Request, res: Response) => {
+  console.log(req.user, 'req.user.azir');
   const result = await BookingServices.createBookingIntoDB(req.body);
 
   sendResponse(res, {
@@ -15,16 +16,15 @@ const createBooking = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-//  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IjA5d2ViQHByb2dyYW1taW5nLWhlcm8uY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzI0MjcyOTcwLCJleHAiOjE3MjQ4Nzc3NzB9.1cQ7bIM9nePn2bMDPB7SiHYHJAYxY6jAPIepvvYhw0Y
-
 const getAllBookings = catchAsync(async (req: Request, res: Response) => {
-  console.log(req.user, 'user123   body');
+  console.log(req.user, 'user123   body', req.headers, 'headers');
   const result = await BookingServices.getAllBookingFromDB();
+  console.log('usersss', result);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Services are retrieved successfully !',
+    message: 'All Booking retrieved successfully !',
     data: result,
   });
 });

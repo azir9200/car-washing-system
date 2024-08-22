@@ -1,13 +1,11 @@
 import { Model } from 'mongoose';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { USER_Role } from './user.constant';
 
 export type TUser = {
   name: string;
   email: string;
   password: string;
   phone: string;
-  role: keyof typeof USER_Role;
+  role: 'admin' | 'user';
   address: string;
   createdAt?: Date;
   updatedAt?: Date;

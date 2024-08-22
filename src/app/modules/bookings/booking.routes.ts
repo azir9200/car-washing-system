@@ -3,23 +3,16 @@ import { BookingController } from './booking.controller';
 import { BookingValidation } from './booking.validation';
 import zodValidateRequest from '../../middlewares/zodValidateRequest';
 import { auth } from '../../middlewares/auth';
-import { USER_Role } from '../user/user.constant';
 
 const router = express.Router();
 
 router.post(
   '/',
-  auth(USER_Role.user),
+  auth('user'),
   zodValidateRequest(BookingValidation.createBookingValidationSchema),
   BookingController.createBooking,
 );
 
-router.get('/', auth(USER_Role.admin), BookingController.getAllBookings);
-
-router.get(
-  '/my-bookings',
-  auth(USER_Role.admin),
-  BookingController.getAllMyBookings,
-);
+router.get('/', auth('admin', 'user'), BookingController.getAllBookings);
 
 export const BookingRoutes = router;

@@ -1,9 +1,7 @@
 import config from '../../config';
-import { USER_Role } from '../user/user.constant';
 import { TUser } from '../user/user.interface';
 import { User } from '../user/user.model';
 import { TLoginUser } from './auth.interface';
-import { isPasswordMatched } from './auth.utils';
 import jwt from 'jsonwebtoken';
 
 const register = async (payload: TUser) => {
@@ -13,10 +11,7 @@ const register = async (payload: TUser) => {
     throw new Error('User already exists');
   }
 
-  payload.role = USER_Role.admin || USER_Role.user;
-  //create user
   const newUser = await User.create(payload);
-
   return newUser;
 };
 
@@ -25,15 +20,7 @@ const login = async (payload: TLoginUser) => {
   if (!user) {
     throw new Error('User not found');
   }
-  const passwordMatch = await isPasswordMatched(
-    payload.password,
-    user.password,
-  );
-
-  if (!passwordMatch) {
-    throw new Error('Password not matched');
-  }
-
+ 
   const jwtPayload = {
     email: user.email,
     role: user.role,
