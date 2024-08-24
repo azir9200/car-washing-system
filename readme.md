@@ -1,26 +1,28 @@
-# Project Title
+## Table of Contents
 
-Project Name: E-commerce Product Data Types
+Overview
+Installation
+Configuration
+Folder Structure
+Naming Convention
+Community
 
-## Introduction
+## Overview
 
-E-commerce Product Data Types is Typescript Project based with MongoDB and Mongoose for effective data management. to setup this project you need to install few things.  
--first install a command line npm init to Create package.json File.
--then install express, typescript, mongoose, for initial setup your project.
--you can install cores, dotenv command as a middleware to make more efficient of your project.
--install zod validation for validate your data in build time.
--get more benefit install eslint.
+Car Washing System allows you to make your booking, checking updates, choice your time and other facilities with a clean and responsive interface.
 
-Brief description of my project.
+## Features
 
-## Getting Started
+-Create account as a admin or general user,
+-login your on own account by simple using email and password.
+-check all available services and and choice your need one.
+-Services can create, delete and update only by Admin.
+-Service can booked by user.
+=One can check all available slot for services.
 
-This Project build up with mongoose database management. Data is manage differ to Product and Order Collection.
-One can create product, get all product and get product by certain fields as well as update and delete data.
+## Use tools
 
-### Prerequisites
-
-List of things you need to have installed before running the project.
+-This project is build up with Mongoose, Typescript, Express etc. to make user best experience.
 
 ### Installation
 
