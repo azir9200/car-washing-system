@@ -10,7 +10,7 @@ const createService = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Service is created successfully!',
+    message: 'Service  created successfully!',
     data: result,
   });
 });
@@ -43,7 +43,7 @@ const updateService = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Service  is updated successfully',
+    message: 'Service updated successfully',
     data: result,
   });
 });

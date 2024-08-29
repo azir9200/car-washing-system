@@ -1,3 +1,5 @@
+import httpStatus from 'http-status';
+import AppError from '../../errors/handleAppError';
 import { convertMinutesToTime, parseTimeToMinutes } from './slot.util';
 import { TSlot } from './slots.interface';
 import { SlotModel } from './slots.model';
@@ -36,20 +38,11 @@ const createSlotsIntoDB = async (slotData: TSlot) => {
   return slots;
 };
 
-const getAvailableSlots = async (date?: string, serviceId?: string) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const query: any = { isBooked: 'available' };
-
-  if (date) {
-    query.date = date;
+const getAvailableSlots = async () => {
+  const slots = await SlotModel.find().populate('service');
+  if (!slots || slots.length === 0) {
+    throw new AppError(httpStatus.NOT_FOUND, 'Data not found !');
   }
-
-  if (serviceId) {
-    query.service = serviceId;
-  }
-
-  // Populate the service details
-  const slots = await SlotModel.find(query).populate('service');
 
   return slots;
 };

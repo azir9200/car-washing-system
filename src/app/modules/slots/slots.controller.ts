@@ -16,14 +16,7 @@ const createSlots = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getAvailableSlots = catchAsync(async (req: Request, res: Response) => {
-  const { date, serviceId } = req.query;
-
-
-  const result = await SlotService.getAvailableSlots(
-    date as string | undefined,
-    serviceId as string | undefined,
-  );
-
+  const result = await SlotService.getAvailableSlots();
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
