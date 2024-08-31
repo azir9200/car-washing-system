@@ -14,7 +14,6 @@ const createBookingIntoDB = async (booking: TBooking) => {
 
 const getAllBookingFromDB = async () => {
   const result = await BookingModel.find()
-    //  .populate('customer')
     .populate('serviceId')
     .populate('slotId');
   if (!result || result.length === 0) {

@@ -50,41 +50,14 @@ const updateService = catchAsync(async (req, res) => {
 
 const deleteService = catchAsync(async (req, res) => {
   const { id } = req.params;
-  //  const data = req.body;
   const result = await ServiceServices.deleteServiceFromDB(id);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Service  deleted successfully',
-    // data: data,
     data: result,
   });
 });
-
-// const createSlots = catchAsync(async (req: Request, res: Response) => {
-//   const result = await ServiceServices.createSlotsIntoDB(req.body);
-
-//   sendResponse(res, {
-//     statusCode: httpStatus.OK,
-//     success: true,
-//     message: 'Slots created successfully',
-//     data: result,
-//   });
-// });
-
-// const getAllAvailableSlots = catchAsync(async (req: Request, res: Response) => {
-//   console.log(req.body, 'req,boy');
-//   // const { service } = req.body;
-//   const result = await ServiceServices.getAvailableSlotsFromDB();
-//   console.log(result, 'result. reeere');
-
-//   sendResponse(res, {
-//     statusCode: httpStatus.OK,
-//     success: true,
-//     message: 'Available slots retrieved successfully',
-//     data: result,
-//   });
-// });
 
 export const ServiceController = {
   createService,
@@ -92,5 +65,5 @@ export const ServiceController = {
   getSingleService,
   deleteService,
   updateService,
-  // getAllAvailableSlots,
+
 };

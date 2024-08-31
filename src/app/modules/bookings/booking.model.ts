@@ -2,11 +2,6 @@ import mongoose, { Schema, model } from 'mongoose';
 import { TBooking } from './booking.interface';
 
 const BookingSchema = new mongoose.Schema<TBooking>({
-  // customer: {
-  //   type: Schema.Types.ObjectId,
-  //   required: [true, 'Customer id is required'],
-  //   ref: 'customer',
-  // },
   serviceId: {
     type: Schema.Types.ObjectId,
     ref: 'service',
