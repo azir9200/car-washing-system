@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Model } from 'mongoose';
+import { UserRole } from './user.constant';
 
 export type TUser = {
   name: string;
@@ -11,9 +13,9 @@ export type TUser = {
   updatedAt?: Date;
 };
 
-
 export interface UserModel extends Model<TUser> {
   //instance methods for checking if the user exist
   isUserExists(id: string): Promise<TUser>;
- 
 }
+
+export type TUserRole = keyof typeof UserRole;

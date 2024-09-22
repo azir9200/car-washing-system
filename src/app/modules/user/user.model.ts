@@ -50,9 +50,5 @@ userSchema.statics.isUserExists = async function (id: string) {
   const result = await User.findOne({ id }).select('+password');
   return result;
 };
-userSchema.statics.isUserExists = async function (id: string) {
-  const result = await User.findOne({ id }).select('+password');
-  return result;
-};
 
-export const User = model<TUser, UserModel>('customer', userSchema);
+export const User = model<TUser, UserModel>('User', userSchema);

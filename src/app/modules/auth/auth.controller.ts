@@ -1,36 +1,41 @@
-import config from '../../config';
+import httpStatus from 'http-status';
 import catchAsync from '../../utils/catchAsync';
-import { AuthServices } from './auth.service';
+import sendResponse from '../../utils/sendResponse';
+import { authServices } from './auth.service';
+import config from '../../config';
 
-const register = catchAsync(async (req, res) => {
-  const result = await AuthServices.register(req.body);
+const loginUser = catchAsync(async (req, res) => {
+  const result = await authServices.loginUser(req.body);
+  const { accessToken, refreshToken } = result;
 
-  res.status(200).json({
+  res.cookie('refreshToken', refreshToken, {
+    secure: config.NODE_ENV === 'production',
+    httpOnly: true,
+  });
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
     success: true,
-    statusCode: 200,
-    message: 'User registered successfully!',
+    message: 'User is logged in successfully!',
+    data: {
+      accessToken,
+    },
+  });
+});
+
+const refreshToken = catchAsync(async (req, res) => {
+  const { refreshToken } = req.cookies;
+  const result = await authServices.refreshToken(refreshToken);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Access token is retrieved successfully!',
     data: result,
   });
 });
 
-const login = catchAsync(async (req, res) => {
-  const { user, token, refreshToken } = await AuthServices.login(req.body);
-
-  res.cookie('refreshToken', refreshToken, {
-    httpOnly: true,
-    secure: config.NODE_ENV === 'production',
-  });
-
-  res.status(200).json({
-    success: true,
-    statusCode: 200,
-    message: 'User  logged in successfully!',
-    token,
-    data: user,
-  });
-});
-
 export const authControllers = {
-  register,
-  login,
+  loginUser,
+  refreshToken,
 };

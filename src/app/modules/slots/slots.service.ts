@@ -1,40 +1,61 @@
 import httpStatus from 'http-status';
 import AppError from '../../errors/handleAppError';
-import { convertMinutesToTime, parseTimeToMinutes } from './slot.util';
 import { TSlot } from './slots.interface';
 import { SlotModel } from './slots.model';
 
-const createSlotsIntoDB = async (slotData: TSlot) => {
-  const { service, date, startTime, endTime } = slotData;
+const SERVICE_DURATION = 60; // Service duration in minutes
 
-  const serviceDuration = 60;
-  // Convert start and end times to minutes
+export const generateSlots = (
+  serviceId: string,
+  date: Date,
+  startTime: string,
+  endTime: string,
+) => {
+  const slots: TSlot[] = [];
+
   const startMinutes = parseTimeToMinutes(startTime);
   const endMinutes = parseTimeToMinutes(endTime);
 
-  // Calculate the total duration
-  const totalDuration = endMinutes - startMinutes;
+  const totalDuration = endMinutes - startMinutes; // Total duration in minutes
+  const numberOfSlots = totalDuration / SERVICE_DURATION; // Number of slots
 
-  // Calculate the number of slots
-  const numberOfSlots = totalDuration / serviceDuration;
-  // Generate slots
-  const slots: TSlot[] = [];
   for (let i = 0; i < numberOfSlots; i++) {
-    const slotStartTime = convertMinutesToTime(
-      startMinutes + i * serviceDuration,
-    );
-    const slotEndTime = convertMinutesToTime(
-      startMinutes + (i + 1) * serviceDuration,
+    const slotStartTime = minutesToTime(startMinutes + i * SERVICE_DURATION);
+    const slotEndTime = minutesToTime(
+      startMinutes + (i + 1) * SERVICE_DURATION,
     );
 
-    const newSlot = new SlotModel({
-      service,
+    slots.push({
+      service: serviceId,
+      booked: false,
       date,
       startTime: slotStartTime,
       endTime: slotEndTime,
     });
-    slots.push(await newSlot.save());
   }
+
+  return slots;
+};
+
+const parseTimeToMinutes = (time: string) => {
+  const [hours, minutes] = time.split(':').map(Number);
+  return hours * 60 + minutes;
+};
+
+const minutesToTime = (minutes: number) => {
+  const hours = Math.floor(minutes / 60);
+  const mins = minutes % 60;
+  return `${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}`;
+};
+
+const createSlotsIntoDB = async (
+  serviceId: string,
+  date: Date,
+  startTime: string,
+  endTime: string,
+) => {
+  const slots = generateSlots(serviceId, date, startTime, endTime);
+  await SlotModel.insertMany(slots);
   return slots;
 };
 

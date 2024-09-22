@@ -3,9 +3,11 @@ import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import httpStatus from 'http-status';
 import { BookingServices } from './booking.service';
+import { JwtPayload } from 'jsonwebtoken';
 
 const createBooking = catchAsync(async (req: Request, res: Response) => {
-  const result = await BookingServices.createBookingIntoDB(req.body);
+  const user: JwtPayload = req.user;
+  const result = await BookingServices.createBookingIntoDB(user, req.body);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -17,7 +19,6 @@ const createBooking = catchAsync(async (req: Request, res: Response) => {
 
 const getAllBookings = catchAsync(async (req: Request, res: Response) => {
   const result = await BookingServices.getAllBookingFromDB();
-  
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

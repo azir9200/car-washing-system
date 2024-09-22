@@ -25,7 +25,22 @@ const updateUser = catchAsync(async (req, res) => {
   });
 });
 
+const getUser = catchAsync(async (req, res) => {
+  console.log("req", req.user);
+  const { email, role } = req.user;
+
+  const result = await UserServices.getUserFromDB(email, role);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "User is retrieved successfully",
+    data: result,
+  });
+});
+
 export const UserControllers = {
   createAdmin,
   updateUser,
+  getUser,
 };

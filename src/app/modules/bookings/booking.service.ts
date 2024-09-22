@@ -2,9 +2,12 @@ import httpStatus from 'http-status';
 import AppError from '../../errors/handleAppError';
 import { TBooking } from './booking.interface';
 import { BookingModel } from './booking.model';
+import { JwtPayload } from 'jsonwebtoken';
 
-const createBookingIntoDB = async (booking: TBooking) => {
-  const result = (await BookingModel.create(booking)).populate([
+const createBookingIntoDB = async (user: JwtPayload, booking: TBooking) => {
+  const userInfo = { user, ...booking };
+  // const result = await BookingModel.create(userInfo);
+  const result = (await BookingModel.create(userInfo)).populate([
     { path: 'serviceId' },
     { path: 'slotId' },
   ]);

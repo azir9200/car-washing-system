@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.post(
   '/',
-  auth('admin', ),
+
   zodValidateRequest(ServiceValidation.createServiceValidationSchema),
   ServiceController.createService,
 );
@@ -21,12 +21,12 @@ router.get('/:id', ServiceController.getSingleService);
 
 router.put(
   '/:id',
-  auth('admin'),
+
   zodValidateRequest(ServiceValidation.updateServiceValidationSchema),
   ServiceController.updateService,
 );
 
-router.delete('/:id',  auth('admin'), ServiceController.deleteService);
+router.delete('/:id', auth('admin'), ServiceController.deleteService);
 
 router.post(
   '/slots',
@@ -34,6 +34,5 @@ router.post(
   zodValidateRequest(SlotValidation.createSlotValidationSchema),
   SlotController.createSlots,
 );
-
 
 export const ServiceRoutes = router;

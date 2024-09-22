@@ -1,8 +1,9 @@
 import { z } from 'zod';
 
+// Create service validation schema
 export const createServiceValidationSchema = z.object({
   body: z.object({
-    name: z.string().nonempty({ message: 'Name is required' }),
+    name: z.string().nonempty({ message: 'Service name is required' }),
     description: z.string().nonempty({ message: 'Description is required' }),
     price: z
       .number()
@@ -10,13 +11,18 @@ export const createServiceValidationSchema = z.object({
     duration: z
       .number()
       .positive({ message: 'Duration must be a positive number' }),
-    isDeleted: z.boolean().default(false),
+    image: z.string().url({ message: 'Image must be a valid URL' }),
+    isDeleted: z.boolean().optional(), // Optional, with default handled in Mongoose
   }),
 });
 
+// Update service validation schema
 export const updateServiceValidationSchema = z.object({
   body: z.object({
-    name: z.string().nonempty({ message: 'Name is required' }).optional(),
+    name: z
+      .string()
+      .nonempty({ message: 'Service name is required' })
+      .optional(),
     description: z
       .string()
       .nonempty({ message: 'Description is required' })
@@ -29,12 +35,12 @@ export const updateServiceValidationSchema = z.object({
       .number()
       .positive({ message: 'Duration must be a positive number' })
       .optional(),
-    isDeleted: z.boolean().default(false).optional(),
+    image: z.string().url({ message: 'Image must be a valid URL' }).optional(),
+    isDeleted: z.boolean().optional(), // Optional in updates as well
   }),
 });
 
-
-
+// Export validation object
 export const ServiceValidation = {
   createServiceValidationSchema,
   updateServiceValidationSchema,

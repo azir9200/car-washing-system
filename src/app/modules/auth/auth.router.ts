@@ -1,19 +1,19 @@
 import express from 'express';
-import { authControllers } from './auth.controller';
 import zodValidateRequest from '../../middlewares/zodValidateRequest';
-import { AuthValidation } from './auth.validation';
+import { authValidations } from './auth.validation';
+import { authControllers } from './auth.controller';
 
 const router = express.Router();
 
 router.post(
-  '/signup',
-  zodValidateRequest(AuthValidation.signupValidationSchema),
-  authControllers.register,
-);
-router.post(
   '/login',
-  zodValidateRequest(AuthValidation.loginValidationSchema),
-  authControllers.login,
+  zodValidateRequest(authValidations.loginValidationSchema),
+  authControllers.loginUser,
 );
 
+router.post(
+  '/refresh-token',
+  zodValidateRequest(authValidations.refreshTokenValidationSchema),
+  authControllers.refreshToken,
+);
 export const AuthRoutes = router;

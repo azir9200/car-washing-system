@@ -5,7 +5,15 @@ import httpStatus from 'http-status';
 import { SlotService } from './slots.service';
 
 const createSlots = catchAsync(async (req: Request, res: Response) => {
-  const result = await SlotService.createSlotsIntoDB(req.body);
+  const { service, startTime, endTime } = req.body;
+  const date = new Date(req.body.date);
+
+  const result = await SlotService.createSlotsIntoDB(
+    service,
+    date,
+    startTime,
+    endTime,
+  );
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

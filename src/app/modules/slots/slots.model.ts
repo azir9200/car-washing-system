@@ -1,14 +1,12 @@
 import { model, Schema } from 'mongoose';
 import { TSlot } from './slots.interface';
+import mongoose from 'mongoose';
 
 export const slotSchema = new Schema<TSlot>(
   {
-    service: {
-      type: Schema.Types.ObjectId,
-      required: [true, 'Service id is required'],
-      ref: 'service',
-    },
-    date: { type: String, required: true },
+    service: { type: mongoose.Schema.Types.ObjectId, ref: 'Service', required: true },
+    booked: { type: Boolean, default: false },
+    date: { type: Date, required: true },
     startTime: { type: String, required: true },
     endTime: { type: String, required: true },
   },
@@ -18,4 +16,3 @@ export const slotSchema = new Schema<TSlot>(
 );
 
 export const SlotModel = model<TSlot>('slot', slotSchema);
-

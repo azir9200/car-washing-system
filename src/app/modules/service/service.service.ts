@@ -1,11 +1,16 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import httpStatus from 'http-status';
 import AppError from '../../errors/handleAppError';
 import { TService } from './service.interface';
 import { ServiceModel } from './service.model';
 
 const createServiceIntoDB = async (data: TService) => {
-  const result = await ServiceModel.create(data);
-  return result;
+  try {
+    const result = await ServiceModel.create(data);
+    return result;
+  } catch (error) {
+    throw new AppError(httpStatus.BAD_REQUEST, 'Failed to create service.');
+  }
 };
 
 const getAllServiceFromDB = async () => {
