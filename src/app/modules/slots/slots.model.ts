@@ -4,7 +4,11 @@ import mongoose from 'mongoose';
 
 export const slotSchema = new Schema<TSlot>(
   {
-    service: { type: mongoose.Schema.Types.ObjectId, ref: 'Service', required: true },
+    service: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'service',
+      required: true,
+    },
     booked: { type: Boolean, default: false },
     date: { type: Date, required: true },
     startTime: { type: String, required: true },

@@ -2,6 +2,7 @@ import httpStatus from 'http-status';
 import AppError from '../../errors/handleAppError';
 import { TSlot } from './slots.interface';
 import { SlotModel } from './slots.model';
+import mongoose from 'mongoose';
 
 const SERVICE_DURATION = 60; // Service duration in minutes
 
@@ -26,7 +27,7 @@ export const generateSlots = (
     );
 
     slots.push({
-      service: serviceId,
+      service: new mongoose.Types.ObjectId(serviceId),
       booked: false,
       date,
       startTime: slotStartTime,
@@ -42,13 +43,13 @@ const parseTimeToMinutes = (time: string) => {
   return hours * 60 + minutes;
 };
 
-const minutesToTime = (minutes: number) => {
+const minutesToTime = (minutes: number): string => {
   const hours = Math.floor(minutes / 60);
   const mins = minutes % 60;
   return `${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}`;
 };
 
-const createSlotsIntoDB = async (
+export const createSlotsIntoDB = async (
   serviceId: string,
   date: Date,
   startTime: string,
@@ -59,16 +60,25 @@ const createSlotsIntoDB = async (
   return slots;
 };
 
-const getAvailableSlots = async () => {
-  const slots = await SlotModel.find().populate('service');
-  if (!slots || slots.length === 0) {
-    throw new AppError(httpStatus.NOT_FOUND, 'Data not found !');
+export const getAvailableSlotsByService = async (
+  serviceId: string,
+): Promise<TSlot[]> => {
+  const availableSlots = await SlotModel.find({
+    service: new mongoose.Types.ObjectId(serviceId),
+    booked: false, // Fetch only unbooked slots
+  }).exec();
+
+  if (!availableSlots) {
+    throw new AppError(
+      httpStatus.BAD_REQUEST,
+      'No available slots found for this service.',
+    );
   }
 
-  return slots;
+  return availableSlots;
 };
 
 export const SlotService = {
   createSlotsIntoDB,
-  getAvailableSlots,
+  getAvailableSlotsByService,
 };
