@@ -2,17 +2,18 @@ import express from 'express';
 import { BookingController } from './booking.controller';
 import { BookingValidation } from './booking.validation';
 import zodValidateRequest from '../../middlewares/zodValidateRequest';
-import { auth } from '../../middlewares/auth';
 
 const router = express.Router();
 
 router.post(
-  '/',
-  auth('user'),
+  '/create',
+
   zodValidateRequest(BookingValidation.createBookingValidationSchema),
   BookingController.createBooking,
 );
 
-router.get('/', auth('admin', 'user'), BookingController.getAllBookings);
+router.get('/', BookingController.getAllBookings);
+
+router.get('//booking/my-bookings', BookingController.getAllMyBookings);
 
 export const BookingRoutes = router;
