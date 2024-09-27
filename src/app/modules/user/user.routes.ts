@@ -9,7 +9,7 @@ const router = express.Router();
 
 // admin
 router.post(
-  '/create',
+  "/register",
   zodValidateRequest(UserValidations.createUserValidationSchema),
   UserControllers.createAdmin,
 );

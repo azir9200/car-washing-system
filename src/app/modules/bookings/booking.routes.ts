@@ -13,7 +13,6 @@ router.post(
 );
 
 router.get('/', BookingController.getAllBookings);
-
-router.get('//booking/my-bookings', BookingController.getAllMyBookings);
+router.get('/booking/my-bookings', BookingController.getAllMyBookings);
 
 export const BookingRoutes = router;

@@ -6,20 +6,11 @@ import bcrypt from 'bcrypt';
 const userSchema = new Schema<TUser, UserModel>(
   {
     name: { type: String, required: true },
-
-    email: { type: String, required: true },
-    role: {
-      type: String,
-      enum: ['admin', 'user'],
-    },
-    password: {
-      type: String,
-      required: true,
-      select: false,
-    },
-    phone: { type: String, required: true },
-
-    address: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true, select: 0 },
+    phone: { type: String },
+    address: { type: String },
+    role: { type: String, enum: ['user', 'admin'] },
   },
   {
     timestamps: true,

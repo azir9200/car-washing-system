@@ -1,7 +1,7 @@
 import httpStatus from 'http-status';
 import { TUserLogin } from './auth.interface';
 import config from '../../config';
-import { createToken, verifyToken } from './auth.utils';
+import { createToken, } from './auth.utils';
 import bcrypt from 'bcrypt';
 import AppError from '../../errors/handleAppError';
 import { User } from '../user/user.model';
@@ -54,27 +54,26 @@ const loginUser = async (payload: TUserLogin) => {
   };
 };
 
-const refreshToken = async (token: string) => {
-  // checking token is valid
-  const decoded = verifyToken(token, config.jwt_refresh_secret as string);
+// const refreshToken = async (token: string) => {
+//   // checking token is valid
+//   const decoded = verifyToken(token, config.jwt_refresh_secret as string);
 
-  const { user } = decoded;
-  const jwtPayload = {
-    email: user.email,
-    role: user.role,
-  };
-  const accessToken = createToken(
-    jwtPayload,
-    config.jwt_access_secret as string,
-    config.jwt_access_expires_in as string,
-  );
+//   const { user } = decoded;
+//   const jwtPayload = {
+//     email: user.email,
+//     role: user.role,
+//   };
+//   const accessToken = createToken(
+//     jwtPayload,
+//     config.jwt_access_secret as string,
+//     config.jwt_access_expires_in as string,
+//   );
 
-  return {
-    accessToken,
-  };
-};
+//   return {
+//     accessToken,
+//   };
+// };
 
 export const authServices = {
   loginUser,
-  refreshToken,
 };

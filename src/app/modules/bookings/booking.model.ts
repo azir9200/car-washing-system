@@ -11,12 +11,15 @@ const BookingSchema = new mongoose.Schema<TBooking>({
     required: true,
     ref: 'slot',
   },
+  // userId: {
+  //   type: Schema.Types.ObjectId,
+  //   required: true,
+  //   ref: 'User',
+  // },
 
   vehicleType: { type: String, required: true },
   vehicleBrand: { type: String, required: true },
   vehicleModel: { type: String, required: true },
-  manufacturingYear: { type: Number, required: true },
-  registrationPlate: { type: String, required: true },
 });
 
 //creating a custom static method
