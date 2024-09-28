@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import httpStatus from 'http-status';
 import AppError from '../../errors/handleAppError';
 import { TBooking } from './booking.interface';
@@ -34,8 +35,17 @@ const getMyBookingFromDB = async () => {
   return result;
 };
 
+const getSingleBookingById = async (bookingId: any) => {
+  const result = await BookingModel.find({ _id: bookingId });
+  if (!result) {
+    throw new AppError(httpStatus.NOT_FOUND, 'Data not found !');
+  }
+  return result;
+};
+
 export const BookingServices = {
   createBookingIntoDB,
   getAllBookingFromDB,
   getMyBookingFromDB,
+  getSingleBookingById,
 };

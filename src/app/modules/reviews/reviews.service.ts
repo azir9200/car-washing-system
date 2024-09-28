@@ -2,9 +2,12 @@ import httpStatus from 'http-status';
 import AppError from '../../errors/handleAppError';
 import { TReview } from './reviews.interface';
 import { ReviewModel } from './reviews.model';
+import { User } from '../user/user.model';
 
 const createReviewIntoDB = async (data: TReview) => {
-  const result = await ReviewModel.create(data);
+  const { userId } = data;
+  const findUser = await User.findById(userId);
+  const result = await ReviewModel.create(findUser);
   return result;
 };
 

@@ -14,5 +14,6 @@ router.post(
 
 router.get('/', BookingController.getAllBookings);
 router.get('/booking/my-bookings', BookingController.getAllMyBookings);
+router.get('/single-booking/:id', BookingController.getSingleBookings);
 
 export const BookingRoutes = router;

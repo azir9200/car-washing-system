@@ -9,7 +9,7 @@ import { UserRole } from '../modules/user/user.constant';
 
 export const auth = (...requiredRoles: (keyof typeof UserRole)[]) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const accessToken = req.header('Authorization')?.replace('Bearer ', '');
+    const accessToken = req.header('Authorization');
 
     if (!accessToken) {
       throw new AppError(401, 'You have no access to this route');

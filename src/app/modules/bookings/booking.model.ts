@@ -12,7 +12,7 @@ const BookingSchema = new mongoose.Schema<TBooking>({
     ref: 'slot',
   },
   // userId: {
-  //   type: Schema.Types.ObjectId,
+  //   type: Schema.Types.ObjectId, // Include userId to track who made the booking
   //   required: true,
   //   ref: 'User',
   // },
@@ -20,6 +20,7 @@ const BookingSchema = new mongoose.Schema<TBooking>({
   vehicleType: { type: String, required: true },
   vehicleBrand: { type: String, required: true },
   vehicleModel: { type: String, required: true },
+  date: { type: String },
 });
 
 //creating a custom static method
