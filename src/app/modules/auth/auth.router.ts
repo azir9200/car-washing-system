@@ -1,14 +1,19 @@
-import express from 'express';
-import zodValidateRequest from '../../middlewares/zodValidateRequest';
-import { authValidations } from './auth.validation';
-import { authControllers } from './auth.controller';
+import express from "express";
+import zodValidateRequest from "../../middlewares/zodValidateRequest";
+import { authValidations } from "./auth.validation";
+import { authControllers } from "./auth.controller";
 
 const router = express.Router();
 
 router.post(
-  '/login',
+  "/login",
   zodValidateRequest(authValidations.loginValidationSchema),
-  authControllers.loginUser,
+  authControllers.loginUser
 );
 
-export const AuthRoutes = router;
+// router.post(
+//   '/refresh-token',
+//   zodValidateRequest(authValidations.refreshTokenValidationSchema),
+//   authControllers.refreshToken,
+// );
+export const authRoutes = router;

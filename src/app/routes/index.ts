@@ -2,9 +2,11 @@ import { Router } from 'express';
 import { UserRoutes } from '../modules/user/user.routes';
 import { BookingRoutes } from '../modules/bookings/booking.routes';
 import { ServiceRoutes } from '../modules/service/service.routes';
-import { AuthRoutes } from '../modules/auth/auth.router';
 import { SlotRoutes } from '../modules/slots/slots.route';
 import { ReviewRoutes } from '../modules/reviews/reviews.route';
+import { orderRoutes } from '../modules/order/order.route';
+import { PaymentRoutes } from '../modules/payment/payment.route';
+import { authRoutes } from '../modules/auth/auth.router';
 
 const router = Router();
 
@@ -15,7 +17,7 @@ const moduleRoutes = [
   },
   {
     path: '/auth',
-    route: AuthRoutes,
+    route: authRoutes,
   },
   {
     path: '/services',
@@ -24,6 +26,10 @@ const moduleRoutes = [
   {
     path: '/bookings',
     route: BookingRoutes,
+  },
+  {
+    path: '/order',
+    route: orderRoutes,
   },
   {
     path: '/my-bookings',
@@ -37,6 +43,10 @@ const moduleRoutes = [
     path: '/review',
     route: ReviewRoutes,
   },
+  {
+    path: "/payment",
+    route: PaymentRoutes,
+  }
 ];
 
 moduleRoutes.forEach((route) => router.use(route.path, route.route));
