@@ -2,22 +2,16 @@ import { Request, Response } from 'express';
 import { paymentServices } from './payment.service';
 
 const confirmationController = async (req: Request, res: Response) => {
-  const { transactionId, status } = req.query;
-  const result = await paymentServices.confirmationService(
-    transactionId as string,
-    status as string,
-  );
-  res.send(result);
+  const { transactionId } = req.query;
+  await paymentServices.confirmationService(transactionId as string);
+  res.redirect('https://car-wash-client-five.vercel.app/payment/success');
+  // res.send(result);
+};
+
+const confirmationFailed = async (req: Request, res: Response) => {
+  res.redirect('https://car-wash-client-five.vercel.app/payment/failed');
 };
 export const paymentController = {
   confirmationController,
+  confirmationFailed,
 };
-
-// {   res.send(req.query.transactionId);
-//   const result = await paymentServices.confirmationService(
-//     req.query.transactionId as string,
-//     req.query.status as string,
-//   );
-//    res.send(result)
-//   //  res.redirect();
-//   };

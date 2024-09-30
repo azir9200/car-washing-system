@@ -8,8 +8,10 @@ export const initiatePayment = async (paymentData: any) => {
     signature_key: config.signature_key,
     tran_id: paymentData.transactionId,
     // success     --todo
-    success_url: `http://localhost:5000/api/payment/confirmation?transactionId=${paymentData.transactionId}&status=success`,
-    fail_url: `http://localhost:5000/api/payment/confirmation?status=failed`,
+    success_url: `https://backend-deply-project.vercel.app/api/payment/confirmation/success?transactionId=${paymentData.transactionId}`,
+    fail_url: `https://backend-deply-project.vercel.app/api/payment/confirmation/failed`,
+    // success_url: `http://localhost:5000/api/payment/confirmation/success?transactionId=${paymentData.transactionId}`,
+    // fail_url: `http://localhost:5000/api/payment/confirmation/failed`,
     cancel_url: 'http://localhost:5173/',
     amount: paymentData.totalPrice,
     currency: 'BDT',
@@ -39,5 +41,5 @@ export const verifyPayment = async (tnxId: string) => {
     },
   });
   return response.data;
-  // return 
+  // return
 };
