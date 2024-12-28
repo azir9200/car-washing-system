@@ -31,7 +31,6 @@ const getUserFromDB = async (email: string, role: string) => {
   if (role === 'user') {
     result = await User.findOne({ email: email });
   }
-
   return result;
 };
 

@@ -2,6 +2,7 @@ import { model, Schema } from 'mongoose';
 import { TUser, UserModel } from './user.interface';
 import config from '../../config';
 import bcrypt from 'bcrypt';
+import { UserRole } from './user.constant';
 
 const userSchema = new Schema<TUser, UserModel>(
   {
@@ -10,7 +11,11 @@ const userSchema = new Schema<TUser, UserModel>(
     password: { type: String, required: true, select: 0 },
     phone: { type: String },
     address: { type: String },
-    role: { type: String, enum: ['user', 'admin'] },
+    role: {
+      type: String,
+      enum: Object.keys(UserRole),
+      required: true,
+    },
   },
   {
     timestamps: true,
@@ -21,6 +26,7 @@ userSchema.methods.isUserExists = async function (email: string) {
   const existingUser = await User.findOne({ email });
   return existingUser;
 };
+
 userSchema.pre('save', async function (next) {
   // eslint-disable-next-line @typescript-eslint/no-this-alias
   const user = this;

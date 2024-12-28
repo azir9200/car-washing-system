@@ -5,8 +5,9 @@ import httpStatus from 'http-status';
 import { ServiceServices } from './service.service';
 
 const createService = catchAsync(async (req: Request, res: Response) => {
+  console.log('contro service', req.body);
   const result = await ServiceServices.createServiceIntoDB(req.body);
-
+  // console.log('service contro', result);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -27,8 +28,11 @@ const getAllService = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getSingleService = catchAsync(async (req: Request, res: Response) => {
+  console.log('service  controller params', req.params);
   const { id } = req.params;
+  console.log('service  controller id', id);
   const result = await ServiceServices.getSingleServiceFromDB(id);
+  console.log('idnjkfnfkl', result);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -37,7 +41,7 @@ const getSingleService = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const updateService = catchAsync(async (req, res) => {  
+const updateService = catchAsync(async (req, res) => {
   const { id } = req.params;
   const result = await ServiceServices.updateServiceFromDB(id, req.body);
   sendResponse(res, {
@@ -65,5 +69,4 @@ export const ServiceController = {
   getSingleService,
   deleteService,
   updateService,
-
 };

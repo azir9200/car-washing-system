@@ -9,9 +9,10 @@ const router = express.Router();
 
 // admin
 router.post(
-  '/register',
+  '/create',
+  // auth(UserRole.admin, UserRole.user),
   zodValidateRequest(UserValidations.createUserValidationSchema),
-  UserControllers.createAdmin,
+  UserControllers.createUser,
 );
 
 //update

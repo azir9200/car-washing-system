@@ -9,21 +9,6 @@ const createOrder = async (orderData: any) => {
   // eslint-disable-next-line prefer-const
   const totalPrice = service.price;
 
-  // Calculate the total price
-  //   const bookingDetails = await Promise.all(
-  //     products.map(async (item: any) => {
-  //       const booking = await BookingModel.findById(item.booking);
-  //       if (booking) {
-
-  //         return {
-  //           product: booking._id,
-
-  //         };
-  //       } else {
-  //         throw new Error("Product not found");
-  //       }
-  //     })
-  //   );
 
   const transactionId = `TXN-${Date.now()}`;
 

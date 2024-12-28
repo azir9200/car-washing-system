@@ -8,12 +8,7 @@ import { SlotValidation } from '../slots/slots.validation';
 
 const router = express.Router();
 
-router.post(
-  '/',
-
-  zodValidateRequest(ServiceValidation.createServiceValidationSchema),
-  ServiceController.createService,
-);
+router.post('/', ServiceController.createService);
 
 router.get('/', ServiceController.getAllService);
 
@@ -21,7 +16,6 @@ router.get('/:id', ServiceController.getSingleService);
 
 router.put(
   '/:id',
-
   zodValidateRequest(ServiceValidation.updateServiceValidationSchema),
   ServiceController.updateService,
 );

@@ -1,6 +1,7 @@
 import { Model } from 'mongoose';
 
 export type TService = {
+  
   name: string;
   description: string;
   price: number;

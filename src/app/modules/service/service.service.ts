@@ -6,7 +6,9 @@ import { ServiceModel } from './service.model';
 
 const createServiceIntoDB = async (data: TService) => {
   try {
+  
     const result = await ServiceModel.create(data);
+
     return result;
   } catch (error) {
     throw new AppError(httpStatus.BAD_REQUEST, 'Failed to create service.');
