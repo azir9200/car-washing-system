@@ -40,13 +40,13 @@ const moduleRoutes = [
     route: SlotRoutes,
   },
   {
-    path: '/review',
+    path: '/reviews',
     route: ReviewRoutes,
   },
   {
-    path: "/payment",
+    path: '/payment',
     route: PaymentRoutes,
-  }
+  },
 ];
 
 moduleRoutes.forEach((route) => router.use(route.path, route.route));

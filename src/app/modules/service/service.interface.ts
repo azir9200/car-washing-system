@@ -7,7 +7,7 @@ export type TService = {
   price: number;
   duration: number;
   image: string,
-  isDeleted: boolean;
+  isDeleted?: boolean;
 };
 
 export interface TServiceModel extends Model<TService> {
