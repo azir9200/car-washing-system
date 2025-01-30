@@ -12,7 +12,7 @@ export const auth = (...requiredRoles: (keyof typeof UserRole)[]) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers.authorization;
 
-    console.log('access auth', token);
+    
 
     if (!token) {
       throw new AppError(401, 'Unauthorized ,You have no access to this route');

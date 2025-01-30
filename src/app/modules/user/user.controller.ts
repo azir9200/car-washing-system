@@ -5,7 +5,6 @@ import httpStatus from 'http-status';
 
 const createUser = catchAsync(async (req, res) => {
   const result = await UserServices.createAdminIntoDB(req.body);
-  console.log('user controller', result);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

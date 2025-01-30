@@ -1,27 +1,25 @@
-import jwt, { JwtPayload } from "jsonwebtoken";
-import AppError from "../../errors/handleAppError";
+import jwt, { JwtPayload, Secret } from 'jsonwebtoken';
+import AppError from '../../errors/handleAppError';
 
 export const createToken = (
   jwtPayload: { email: string; role: string | undefined },
-  secret: string,
-  expiresIn: string
-) => {
+  secret: Secret,
+  expiresIn: string | number,  // Expiration can be a string or a number
+): string => {
   return jwt.sign(jwtPayload, secret, {
-    expiresIn,
+    expiresIn,  // 'expiresIn' should be either string or number like '1h'
   });
 };
 
-// export const verifyToken = (token: string, secret: string) => {
-//   return jwt.verify(token, secret) as JwtPayload;
-// };
-
+// You can leave verifyToken as is, no need for changes.
 export const verifyToken = (
   token: string,
-  secret: string
+  secret: Secret,
 ): JwtPayload | Error => {
   try {
     return jwt.verify(token, secret) as JwtPayload;
-  } catch (error: any) {
+  } catch (error) {
+    console.log(error);
     throw new AppError(401, 'You are not authorized!');
   }
 };

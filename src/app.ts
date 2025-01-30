@@ -12,8 +12,8 @@ app.use(express.json());
 app.use(
   cors({
     origin: [
-      'http://localhost:5173',
-      // 'https://car-wash-client-five.vercel.app',
+      //  'http://localhost:5173',
+      'https://car-wash-client-435y6dxrd-azir-uddins-projects.vercel.app',
     ],
     credentials: true,
   }),

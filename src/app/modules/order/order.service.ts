@@ -6,7 +6,7 @@ import orderModel from './order.model';
 const createOrder = async (orderData: any) => {
   const { user, service } = orderData;
 
-  // eslint-disable-next-line prefer-const
+   
   const totalPrice = service.price;
 
 
@@ -35,7 +35,7 @@ const createOrder = async (orderData: any) => {
   //payment
   const paymentSession = await initiatePayment(paymentData);
 
-  console.log('payment Session, order service', paymentSession);
+  // console.log('payment Session, order service', paymentSession);
   return paymentSession;
 };
 
