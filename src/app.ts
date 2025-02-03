@@ -12,12 +12,16 @@ app.use(express.json());
 app.use(
   cors({
     origin: [
-      //  'http://localhost:5173',
-      'https://car-wash-client-435y6dxrd-azir-uddins-projects.vercel.app',
+      'https://car-wash-client-five.vercel.app/', // Production
+      // 'http://localhost:5173', // Development
+      // 'http://127.0.0.1:5173', // Local IP
     ],
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
   }),
 );
+app.options('*', cors()); // Handle preflight requests
 
 app.use('/api', router);
 

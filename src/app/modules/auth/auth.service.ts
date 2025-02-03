@@ -57,6 +57,7 @@ const loginUser = async (payload: TUserLogin) => {
     const user = await User.findOne({ email: payload.email }).select(
       '+password',
     );
+
     if (!user) {
       throw new AppError(httpStatus.NOT_FOUND, 'This user is not found!');
     }
@@ -80,17 +81,20 @@ const loginUser = async (payload: TUserLogin) => {
       role: user.role,
       address: user.address,
     };
-
+    console.log('passing 1', config.jwt_access_expires_in);
+    console.log('passing word 2', config.jwt_access_secret);
     const accessToken = createToken(
       jwtPayload,
       config.jwt_access_secret as string,
       config.jwt_access_expires_in as string,
     );
+    // console.log('passing word', accessToken);
     const refreshToken = createToken(
       jwtPayload,
       config.jwt_access_secret as string,
       config.jwt_access_expires_in as string,
     );
+    console.log('acces', accessToken, refreshToken);
     return {
       accessToken,
       refreshToken,
